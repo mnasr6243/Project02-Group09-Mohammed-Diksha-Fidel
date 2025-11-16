@@ -17,15 +17,15 @@ public class AdminManagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_manager);
 
-        View root = findViewById(R.id.main);
-        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        //View root = findViewById(R.id.main);
+        //ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            //Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            //v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            //return insets;
+        //});
 
         Button viewChallenges = findViewById(R.id.btnViewChallenges);
         Button addChallenge   = findViewById(R.id.btnAddChallenge);

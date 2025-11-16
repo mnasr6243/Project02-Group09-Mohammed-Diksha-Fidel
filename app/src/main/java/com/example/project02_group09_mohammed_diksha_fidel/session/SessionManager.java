@@ -35,6 +35,11 @@ public class SessionManager {
         return prefs.contains(KEY_USERNAME);
     }
 
+    public void clear() {
+        editor.clear();
+        editor.apply();
+    }
+
     public void logout() {
         editor.clear();
         editor.apply();

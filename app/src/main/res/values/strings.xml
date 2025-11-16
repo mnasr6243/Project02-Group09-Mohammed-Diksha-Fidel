@@ -4,4 +4,9 @@
     <string name="open_challenges">Open Challenges</string>
     <string name="title_admin_manager">Admin Manager</string>
     <string name="title_challenges">Challenges</string>
+
+    <string name="welcome_message">Welcome</string>
+    <string name="logout">Logout</string>
 </resources>
+
+

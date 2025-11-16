@@ -1,8 +1,5 @@
 package com.example.project02_group09_mohammed_diksha_fidel;
 
-import android.widget.Button;
-import android.content.Intent;
-
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -11,23 +8,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-
-    // TODO: Implement Admin Manager + Challenges feature heres
+public class ChallengesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        Button btnAdmin = findViewById(R.id.btnAdmin);
-        Button btnChallenges = findViewById(R.id.btnChallenges);
-
-        btnAdmin.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, AdminManagerActivity.class)));
-
-        btnChallenges.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, ChallengesActivity.class)));
+        setContentView(R.layout.activity_challenges);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

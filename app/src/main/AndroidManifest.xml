@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project02Group09MohammedDikshaFidel">
         <activity
+            android:name=".LandingPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChallengesActivity"
             android:exported="false" />
         <activity

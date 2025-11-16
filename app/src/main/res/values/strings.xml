@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Project02-Group09-Mohammed-Diksha-Fidel</string>
+    <string name="open_admin_manager">Open Admin Manager</string>
+    <string name="open_challenges">Open Challenges</string>
+    <string name="title_admin_manager">Admin Manager</string>
+    <string name="title_challenges">Challenges</string>
 </resources>

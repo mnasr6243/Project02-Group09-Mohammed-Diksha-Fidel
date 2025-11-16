@@ -1,5 +1,7 @@
 package com.example.project02_group09_mohammed_diksha_fidel;
 
+import android.util.Log;
+import android.widget.Toast;
 import android.widget.Button;
 import android.content.Intent;
 
@@ -23,15 +25,16 @@ public class MainActivity extends AppCompatActivity {
         Button btnAdmin = findViewById(R.id.btnAdmin);
         Button btnChallenges = findViewById(R.id.btnChallenges);
 
-        btnAdmin.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, AdminManagerActivity.class)));
+        btnAdmin.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "Admin clicked", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "Admin button clicked");
+            startActivity(new Intent(MainActivity.this, AdminManagerActivity.class));
+        });
 
-        btnChallenges.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, ChallengesActivity.class)));
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        btnChallenges.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "Challenges clicked", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "Challenges button clicked");
+            startActivity(new Intent(MainActivity.this, ChallengesActivity.class));
         });
     }
 }

@@ -9,16 +9,19 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User user);
 
-    @Query("SELECT * FROM User WHERE username = :username AND password = :password LIMIT 1")
-    User getUser(String username, String password);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertUsers(List<User> users);
+
+    @Query("SELECT * FROM User WHERE userId = :id")
+    User getUserById(int id);  // get user by ID
 
     @Query("SELECT * FROM User WHERE username = :username LIMIT 1")
-    User getUserByUsername(String username);
+    User getUserByUsername(String username);  // get user by username
 
-    @Query("SELECT * FROM User")
-    List<User> getAllUsers();
+    @Query("DELETE FROM User")
+    void deleteAll();
 }
-

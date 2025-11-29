@@ -7,19 +7,22 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Project02-Group09-Mohammed-Diksha-Fidel"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project02Group09MohammedDikshaFidel">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+
+
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".LandingPageActivity" android:exported="false" />
+        <activity android:name=".ChallengesActivity" android:exported="false" />
+        <activity android:name=".AdminManagerActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
 </manifest>

@@ -21,7 +21,6 @@ import java.util.concurrent.Executors;
 )
 public abstract class AppDatabase extends RoomDatabase {
 
-    // DAO getters
     public abstract UserDao userDao();
     public abstract ChallengeDao challengeDao();
     public abstract ParticipationDao participationDao();
@@ -37,8 +36,9 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     "zentrack.db"
                             )
+                            // For this small class project, let Room allow main-thread queries
+                            .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
-                            .allowMainThreadQueries()   // OK for small class project
                             .addCallback(preloadCallback)
                             .build();
                 }
@@ -52,8 +52,6 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             Executors.newSingleThreadExecutor().execute(() -> {
-
-                // IMPORTANT: NOW safe — INSTANCE is fully built
                 AppDatabase database = INSTANCE;
                 UserDao dao = database.userDao();
 
@@ -64,3 +62,4 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 }
+

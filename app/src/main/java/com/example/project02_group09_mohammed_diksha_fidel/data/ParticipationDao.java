@@ -9,9 +9,11 @@ import java.util.List;
 @Dao
 public interface ParticipationDao {
 
-    @Query("SELECT * FROM participations WHERE userId = :userId")
-    List<Participation> getParticipationForUser(int userId);
+    @Query("SELECT * FROM participations WHERE userId = :userId AND challengeId = :challengeId LIMIT 1")
+    Participation findByUserIdAndChallengeId(int userId, int challengeId);
 
     @Insert
     long insertParticipation(Participation participation);
+
+    // optional: other queries if you want
 }

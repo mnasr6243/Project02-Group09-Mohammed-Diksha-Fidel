@@ -1,9 +1,16 @@
 package com.example.project02_group09_mohammed_diksha_fidel.data;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "participations")
+@Entity(tableName = "participations",
+        foreignKeys = @ForeignKey(entity = Challenge.class,
+                parentColumns = "challengeId",
+                childColumns = "challengeId",
+                onDelete = ForeignKey.CASCADE),
+        indices = {@Index("challengeId")})
 public class Participation {
 
     @PrimaryKey(autoGenerate = true)

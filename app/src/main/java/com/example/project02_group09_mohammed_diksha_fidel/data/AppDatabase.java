@@ -10,10 +10,20 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+@Database(
+        entities = {
+                User.class,
+                Challenge.class,
+                Participation.class
+        },
+        version = 2,
+        exportSchema = false
+)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
+    public abstract ChallengeDao challengeDao();
+    public abstract ParticipationDao participationDao();
 
     private static volatile AppDatabase INSTANCE;
 
@@ -26,7 +36,9 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     "zentrack.db"
                             )
-                            .allowMainThreadQueries()   // OK for small class project
+                            // For this small class project, let Room allow main-thread queries
+                            .allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
                             .addCallback(preloadCallback)
                             .build();
                 }
@@ -35,13 +47,11 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static final Callback preloadCallback = new Callback() {
+    private static final RoomDatabase.Callback preloadCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             Executors.newSingleThreadExecutor().execute(() -> {
-
-                // IMPORTANT: NOW safe — INSTANCE is fully built
                 AppDatabase database = INSTANCE;
                 UserDao dao = database.userDao();
 
@@ -52,3 +62,4 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 }
+

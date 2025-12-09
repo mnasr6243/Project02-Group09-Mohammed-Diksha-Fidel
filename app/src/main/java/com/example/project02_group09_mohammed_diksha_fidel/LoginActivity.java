@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             // Save the user session (ID, name, and admin status)
-            session.saveSession(user.getId(), user.getUsername(), user.isAdmin());
+            session.saveSession(user.getUserId(), user.getUsername(), user.isAdmin());
 
             // Go to the main landing page
             Intent intent = new Intent(LoginActivity.this, LandingPageActivity.class);

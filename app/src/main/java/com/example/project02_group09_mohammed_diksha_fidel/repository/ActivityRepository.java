@@ -1,35 +1,63 @@
 package com.example.project02_group09_mohammed_diksha_fidel.repository;
+
 import android.app.Application;
 
-// Imports pointing to the correct data package
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLogDao;
 import com.example.project02_group09_mohammed_diksha_fidel.data.AppDatabase;
 
+import java.util.Calendar; // REQUIRED IMPORT
 import java.util.List;
 
 public class ActivityRepository {
-    // FIX: Uses private final for encapsulation
     private final ActivityLogDao activityLogDao;
 
-    // Constructor: Sets up the connection
+    // INTERFACE: Used to send the query results back to the Activity (Must be public inside the class)
+    public interface OnLogsLoadedListener {
+        void onLogsLoaded(List<ActivityLog> logs);
+    }
+
     public ActivityRepository(Application application) {
-        // Calls the static 'get' method in AppDatabase
         AppDatabase db = AppDatabase.get(application);
-        // Gets the DAO object from the database instance
         this.activityLogDao = db.activityLogDao();
     }
 
-    // Insert Method: Write Operations (Used by AddLogActivity)
     public void insert(ActivityLog log) {
-        // Runs the insert on the dedicated background thread executor
         AppDatabase.databaseWriteExecutor.execute(() -> {
             activityLogDao.insert(log);
         });
     }
 
-    // Query Method: Read Operations (Used by DailyLogActivity)
-    public List<ActivityLog> getDailyLogs(int userId, long start, long end) {
-        return activityLogDao.getDailyLogsForUser(userId, start, end);
+    // ASYNCHRONOUS Read Operations (Used by DailyLogActivity)
+    public void getDailyLogsForUser(int userId, long date, OnLogsLoadedListener listener) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            long startOfDay = calculateStartOfDay(date);
+            long endOfDay = calculateEndOfDay(date);
+
+            List<ActivityLog> logs = activityLogDao.getLogsForDay(userId, startOfDay, endOfDay);
+            listener.onLogsLoaded(logs);
+        });
+    }
+
+    // Helper Method 1: Calculates the start time of the current day (00:00:00)
+    private long calculateStartOfDay(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    // Helper Method 2: Calculates the end time of the current day (23:59:59)
+    private long calculateEndOfDay(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar.getTimeInMillis();
     }
 }

@@ -34,8 +34,15 @@ public class ActivityLog {
     }
 
     // Getters for accessing the data
-    public int getId() { return id; }
     public String getType() { return type; }
     public float getValue() { return value; }
     public long getTimestamp() { return timestamp; }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

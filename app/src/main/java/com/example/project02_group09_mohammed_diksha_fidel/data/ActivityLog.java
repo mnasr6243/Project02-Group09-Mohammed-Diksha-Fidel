@@ -25,8 +25,7 @@ public class ActivityLog {
     public long timestamp; // Time the activity was recorded
 
     // Constructor
-    public ActivityLog(int id, int userId, String type, float value, long timestamp) {
-        this.id = id;
+    public ActivityLog(int userId, String type, float value, long timestamp) {
         this.userId = userId;
         this.type = type;
         this.value = value;

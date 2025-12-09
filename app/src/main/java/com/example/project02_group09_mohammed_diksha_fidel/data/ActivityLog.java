@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(
         tableName = "activity_log",
+        indices = {@androidx.room.Index(value = {"userId"})},
         foreignKeys = @ForeignKey(
                 entity = User.class,
                 parentColumns = "userId",
@@ -33,9 +34,18 @@ public class ActivityLog {
     @Ignore
     public ActivityLog() {}
 
-    //  constructor
+    // 1. Constructor for READING data from the database (includes 'id')
     public ActivityLog(int id, int userId, String activityType, float value, long timestamp) {
         this.id = id;
+        this.userId = userId;
+        this.activityType = activityType;
+        this.value = value;
+        this.timestamp = timestamp;
+    }
+
+    // 2. CONSTRUCTOR FOR INSERTING new data (omits 'id' because it's auto-generated)
+    @Ignore
+    public ActivityLog(int userId, String activityType, float value, long timestamp) {
         this.userId = userId;
         this.activityType = activityType;
         this.value = value;

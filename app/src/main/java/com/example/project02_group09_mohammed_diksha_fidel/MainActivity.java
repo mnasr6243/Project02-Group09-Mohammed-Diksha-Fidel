@@ -14,28 +14,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 1. Check if a user is already logged in
+        // CRITICAL FIX: Combine session check with Admin redirection logic (Teammate's logic)
         SessionManager session = new SessionManager(this);
         if (session.isLoggedIn()) {
-            startActivity(new Intent(MainActivity.this, LandingPageActivity.class));
+            if (session.isAdmin()) {
+                startActivity(new Intent(MainActivity.this, AdminManagerActivity.class));
+            } else {
+                startActivity(new Intent(MainActivity.this, LandingPageActivity.class));
+            }
             finish(); // block back button
             return;
         }
 
-        // 2. Load the main layout
+        // Load the main layout
         setContentView(R.layout.activity_main);
 
-        // Buttons required by assignment:
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
 
-        // 3. Login button sends to the login screen
+        // Login button sends to the login screen
         btnLogin.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         });
 
-        // 4. Create Account button sends to the account creation screen (LoginActivity for now)
+        // CRITICAL FIX: Create Account button sends to the dedicated creation screen (Your logic)
         btnCreateAccount.setOnClickListener(v -> {
             Intent intent = new Intent(this, CreateAccountActivity.class);
             startActivity(intent);

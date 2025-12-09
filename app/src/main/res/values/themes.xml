@@ -11,4 +11,6 @@
     <style name="Base.Theme.Project02Group09MohammedDikshaFidel" parent="Theme.Material3.DayNight.NoActionBar">
     </style>
 
+    <style name="Theme.Project02" parent="Theme.Project02Group09MohammedDikshaFidel" />
+
 </resources>

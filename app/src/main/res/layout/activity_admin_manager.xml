@@ -1,40 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:id="@+id/main">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/adminTitle"
-        android:text="Admin Manager"
-        android:textSize="24sp"
+        android:id="@+id/text_admin_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin: Manage Challenges"
         android:textStyle="bold"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textSize="20sp"
+        android:layout_marginBottom="8dp" />
 
-    <Button
-        android:id="@+id/btnViewChallenges"
-        android:text="View Challenges"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btnAddChallenge"
-        android:text="Add New Challenge"
+    <EditText
+        android:id="@+id/edit_challenge_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Challenge title" />
+
+    <EditText
+        android:id="@+id/edit_challenge_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Challenge description"
+        android:layout_marginTop="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/button_add_challenge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add" />
+
+        <Button
+            android:id="@+id/button_update_challenge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update" />
+
+        <Button
+            android:id="@+id/button_delete_challenge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
         android:layout_marginTop="8dp" />
 
-    <Button
-        android:id="@+id/btnBackToMain"
-        android:text="Back to Main"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text_existing_challenges"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp" />
+        android:text="Existing Challenges"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp" />
+
+    <ListView
+        android:id="@+id/list_admin_challenges"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:choiceMode="singleChoice" />
 
 </LinearLayout>

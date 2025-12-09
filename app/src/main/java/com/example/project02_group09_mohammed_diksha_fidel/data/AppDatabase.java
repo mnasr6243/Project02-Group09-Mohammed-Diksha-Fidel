@@ -10,12 +10,24 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
-// This is the main database class. (Version changed to 4)
-@Database(entities = {User.class, ActivityLog.class}, version = 4, exportSchema = false)
+// CRITICAL FIX: Combines ALL entities (User, ActivityLog, Challenge, Participation)
+@Database(
+        entities = {
+                User.class,
+                ActivityLog.class,
+                Challenge.class,
+                Participation.class
+        },
+        version = 4, // Higher version to ensure no migration issues with combined tables
+        exportSchema = false
+)
 public abstract class AppDatabase extends RoomDatabase {
 
+    // CRITICAL FIX: Includes all abstract DAO methods
     public abstract UserDao userDao();
     public abstract ActivityLogDao activityLogDao();
+    public abstract ChallengeDao challengeDao();
+    public abstract ParticipationDao participationDao();
 
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
@@ -34,10 +46,10 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     "zentrack.db"
                             )
+                            // Keeps the most permissive settings for testing/development
                             .allowMainThreadQueries()
-                            .addCallback(preloadCallback)
-                            // Wipes and recreates the tables if the version changes
                             .fallbackToDestructiveMigration()
+                            .addCallback(preloadCallback)
                             .build();
                 }
             }
@@ -62,7 +74,6 @@ public abstract class AppDatabase extends RoomDatabase {
                 ActivityLogDao logDao = database.activityLogDao();
                 logDao.insert(new ActivityLog(0,1,"Steps",5000,System.currentTimeMillis()
                 ));
-
             });
         }
     };

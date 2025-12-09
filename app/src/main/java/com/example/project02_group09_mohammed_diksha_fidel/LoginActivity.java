@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Set up helpers
+        // CRITICAL FIX: Clean initialization
         userDao = AppDatabase.get(this).userDao();
         session = new SessionManager(this);
 
@@ -35,34 +35,38 @@ public class LoginActivity extends AppCompatActivity {
         Button btnLoginSubmit = findViewById(R.id.btnLoginSubmit);
         Button btnBack = findViewById(R.id.btnBack);
 
-        // What happens when the login button is clicked
-        btnLoginSubmit.setOnClickListener(v -> {
-            String username = etUsername.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
+        // CRITICAL FIX: Use the robust handleLogin() logic
+        btnLoginSubmit.setOnClickListener(v -> handleLogin());
 
-            if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Check the database for the user
-            User user = userDao.getUserByUsername(username);
-
-            if (user == null || !user.getPassword().equals(password)) {
-                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Save the user session (ID, name, and admin status)
-            session.saveSession(user.getId(), user.getUsername(), user.isAdmin());
-
-            // Go to the main landing page
-            Intent intent = new Intent(LoginActivity.this, LandingPageActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
-        // Back button returns to the home screen
         btnBack.setOnClickListener(v -> finish());
+    }
+
+    private void handleLogin() {
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        User user = userDao.getUserByUsername(username);
+
+        if (user == null || !user.getPassword().equals(password)) {
+            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // CRITICAL FIX: Use the Teammate's Session login method
+        session.login(user.getId(), user.getUsername(), user.isAdmin());
+
+        Intent intent;
+        if (user.isAdmin()) {
+            intent = new Intent(LoginActivity.this, AdminManagerActivity.class);
+        } else {
+            intent = new Intent(LoginActivity.this, LandingPageActivity.class);
+        }
+        startActivity(intent);
+        finish();
     }
 }

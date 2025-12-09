@@ -50,7 +50,7 @@ public class UserDaoTest {
         assertEquals("testuser", found.getUsername());
     }
 
-    // Test 2: Check if a username exists (for login/create account).
+    // Test 2: Check if a username exists and retrieve admin status.
     @Test
     public void getUserByUsernameTest() {
         User user = new User("admin_test", "secure", true);
@@ -64,5 +64,41 @@ public class UserDaoTest {
         // Verify nonexistent user returns null
         User notFound = userDao.getUserByUsername("nonexistent");
         assertNull(notFound);
+    }
+
+    // Test 3: Verify user retrieval using both username and password (for Login validation).
+    @Test
+    public void verifyLoginCredentials() {
+        User loginUser = new User("login_test", "correct_pass", false);
+        userDao.insertUser(loginUser);
+
+        // Scenario 1: Correct credentials should return the user
+        User foundUser = userDao.getUserByUsernameAndPassword("login_test", "correct_pass");
+        assertNotNull("User should be found with correct credentials", foundUser);
+        assertEquals("Username must match the inserted user", "login_test", foundUser.getUsername());
+
+        // Scenario 2: Incorrect password should return null
+        User failedUser = userDao.getUserByUsernameAndPassword("login_test", "wrong_pass");
+        assertNull("User should NOT be found with incorrect password", failedUser);
+    }
+
+    // Test 4: Verify the isAdmin status is retrieved correctly for both Admin and Regular users.
+    @Test
+    public void verifyAdminStatusRetrieval() {
+        // Insert a user marked as Admin
+        User adminUser = new User("admin_check_1", "securepass", true);
+        userDao.insertUser(adminUser);
+
+        // Retrieve the user by username and assert isAdmin is true
+        User foundAdmin = userDao.getUserByUsername("admin_check_1");
+        assertTrue("User should be an administrator", foundAdmin.isAdmin());
+
+        // Insert a non-admin user
+        User regularUser = new User("user_check_1", "pass", false);
+        userDao.insertUser(regularUser);
+
+        // Retrieve the user and assert isAdmin is false
+        User foundRegular = userDao.getUserByUsername("user_check_1");
+        assertFalse("User should NOT be an administrator", foundRegular.isAdmin());
     }
 }

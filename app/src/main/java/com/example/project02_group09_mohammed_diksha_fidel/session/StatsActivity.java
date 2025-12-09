@@ -58,7 +58,7 @@ public class StatsActivity extends AppCompatActivity {
 
     // Logic to fetch the total steps for the last 7 days from the database.
     private void loadWeeklyStats() {
-        int currentUserId = sessionManager.getCurrentUserId();
+        int currentUserId = sessionManager.getUserId();
 
         // Calculate the start and end dates for the last 7 days (Weekly range)
         Calendar cal = Calendar.getInstance();

@@ -15,6 +15,29 @@ public class Challenge {
 
     public String description;
 
+    public int goalType;
+    public int duration;
 
+    // Optional field from the original structure
     public Integer createdByUserId;
+
+    // Default no-argument constructor (required by Room)
+    public Challenge() {
+        // Empty constructor
+    }
+
+    public Challenge(String title, String description, int goalType, int duration) {
+        this.title = title;
+        this.description = description;
+        this.goalType = goalType;
+        this.duration = duration;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

@@ -79,8 +79,7 @@ public class DailyLogActivity extends AppCompatActivity {
     // Retrieves the log data from the repository.
     private void loadDailyLogs() {
         // Get the current user's ID using the SessionManager
-        int currentUserId = sessionManager.getCurrentUserId();
-
+        int currentUserId = sessionManager.getUserId();
         // Request logs from the repository for the current user and current day.
         activityRepository.getDailyLogsForUser(currentUserId, System.currentTimeMillis(), new ActivityRepository.OnLogsLoadedListener() {
             @Override

@@ -20,8 +20,11 @@ public interface UserDao {
     User getUserById(int id);  // Get user by their ID
 
     @Query("SELECT * FROM User WHERE username = :username LIMIT 1")
-    User getUserByUsername(String username);  // Get user by their username (for login)
+    User getUserByUsername(String username);  // Get user by their username (for account creation check)
 
     @Query("DELETE FROM User")
-    void deleteAll(); // Delete all users (for testing/cleanup)
+    void deleteAll();
+
+    @Query("SELECT * FROM User WHERE username = :username AND password = :password LIMIT 1")
+    User getUserByUsernameAndPassword(String username, String password);
 }

@@ -11,7 +11,6 @@ public class User {
 
     private String username;   // User's name
     private String password;   // User's password
-
     private boolean isAdmin;   // True if the user is an admin
 
     public User(String username, String password, boolean isAdmin) {
@@ -22,12 +21,8 @@ public class User {
 
     // Getters and setters
 
-    public int getUserId() {
-        return userId;
-    }
-
     // Returns the primary key ID
-    public int getId() {
+    public int getUserId() {
         return userId;
     }
 

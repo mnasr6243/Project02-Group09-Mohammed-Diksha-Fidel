@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 4. Create Account button (can be placeholder for now)
         btnCreateAccount.setOnClickListener(v -> {
-            // OPTIONAL for Part 02, can be implemented later
-            // For now, show login page or toast
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         });
     }

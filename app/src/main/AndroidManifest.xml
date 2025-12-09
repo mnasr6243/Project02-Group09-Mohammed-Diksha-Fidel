@@ -14,6 +14,7 @@
         <activity android:name=".LoginActivity" android:exported="false" />
         <activity android:name=".LandingPageActivity" android:exported="false" />
         <activity android:name=".ChallengesActivity" android:exported="false" />
+        <activity android:name=".AddChallengeActivity" android:exported="false" />
         <activity android:name=".AdminManagerActivity" android:exported="false" />
 
         <activity android:name=".CreateAccountActivity" android:exported="false" />

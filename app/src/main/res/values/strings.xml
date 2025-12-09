@@ -46,6 +46,16 @@
     <string name="stay_hydrated">Stay Hydrated</string>
     <string name="challenge_duration_days" />
     <string name="challenges_title" />
+    <string name="challenge_title">Challenge Title</string>
+    <string name="challenge_description_goes_here">Challenge description goes here.</string>
+    <string name="duration_7_days">Duration: 7 days</string>
+    <string name="add_new_challenge1">Add New Challenge</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="duration_days">Duration (days)</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="join">Join</string>
 </resources>
 
 

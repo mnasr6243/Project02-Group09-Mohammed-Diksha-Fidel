@@ -18,7 +18,7 @@
             android:id="@+id/tvChallengeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Challenge Title"
+            android:text="@string/challenge_title"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Challenge description goes here."
+            android:text="@string/challenge_description_goes_here"
             android:textSize="15sp" />
 
         <TextView
@@ -35,10 +35,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="Duration: 7 days"
+            android:text="@string/duration_7_days"
             android:textSize="14sp"
             android:textStyle="italic"
             android:textColor="#555555" />
+        <Button
+            android:id="@+id/btnJoinChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/join" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

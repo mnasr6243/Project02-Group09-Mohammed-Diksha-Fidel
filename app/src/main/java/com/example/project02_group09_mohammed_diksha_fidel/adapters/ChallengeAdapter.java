@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,16 @@ import java.util.List;
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder> {
 
+    public interface OnJoinClickListener {
+        void onJoinClicked(Challenge challenge);
+    }
+
     private final List<Challenge> challenges = new ArrayList<>();
+    private OnJoinClickListener joinClickListener;
+
+    public void setOnJoinClickListener(OnJoinClickListener listener) {
+        this.joinClickListener = listener;
+    }
 
     @NonNull
     @Override
@@ -39,6 +49,12 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
                         challenge.getDurationDays()
                 )
         );
+
+        holder.btnJoin.setOnClickListener(v -> {
+            if (joinClickListener != null) {
+                joinClickListener.onJoinClicked(challenge);
+            }
+        });
     }
 
     @Override
@@ -56,12 +72,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         TextView title;
         TextView description;
         TextView duration;
+        Button btnJoin;
 
         ChallengeViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvChallengeTitle);
             description = itemView.findViewById(R.id.tvChallengeDescription);
             duration = itemView.findViewById(R.id.tvChallengeDuration);
+            btnJoin = itemView.findViewById(R.id.btnJoinChallenge);
         }
     }
 }

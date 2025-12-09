@@ -14,8 +14,8 @@ import java.util.concurrent.Executors;
 // Main Room database for ZenTrack.
 // Now includes User, ActivityLog, and Challenge tables.
 @Database(
-        entities = {User.class, ActivityLog.class, Challenge.class},
-        version = 5,
+        entities = {User.class, ActivityLog.class, Challenge.class, Participation.class},
+        version = 6,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -23,6 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract ActivityLogDao activityLogDao();
     public abstract ChallengeDao challengeDao();
+    public abstract ParticipationDao participationDao();
 
     private static volatile AppDatabase INSTANCE;
 

@@ -30,10 +30,11 @@ public class AdminManagerActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        addChallenge.setOnClickListener(v ->
-                // Placeholder for Add Challenge
-                Toast.makeText(this, "Add Challenge feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        // addChallenge feature
+        addChallenge.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminManagerActivity.this, AddChallengeActivity.class);
+            startActivity(intent);
+        });
 
         backToMain.setOnClickListener(v -> {
             // Go back to the main screen

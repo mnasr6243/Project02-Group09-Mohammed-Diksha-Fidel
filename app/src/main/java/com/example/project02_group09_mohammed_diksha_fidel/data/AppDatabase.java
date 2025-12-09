@@ -8,21 +8,30 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, ActivityLog.class}, version = 4, exportSchema = false)
+// Main Room database for ZenTrack.
+// Now includes User, ActivityLog, and Challenge tables.
+@Database(
+        entities = {User.class, ActivityLog.class, Challenge.class},
+        version = 5,
+        exportSchema = false
+)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
     public abstract ActivityLogDao activityLogDao();
+    public abstract ChallengeDao challengeDao();
 
     private static volatile AppDatabase INSTANCE;
-    private static final int NUMBER_OF_THREADS = 4;
 
+    private static final int NUMBER_OF_THREADS = 4;
+    // Executor for background DB work
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
+    // Singleton getter
     public static AppDatabase get(Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
@@ -32,9 +41,9 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     "zentrack.db"
                             )
-                            .allowMainThreadQueries()
-                            .fallbackToDestructiveMigration()
-                            .addCallback(preloadCallback)
+                            .allowMainThreadQueries()               // OK for this class project
+                            .addCallback(preloadCallback)           // Seed initial data
+                            .fallbackToDestructiveMigration()       // Reset DB on version change
                             .build();
                 }
             }
@@ -42,26 +51,40 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    // Runs the first time the DB is created
     private static final Callback preloadCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+
             databaseWriteExecutor.execute(() -> {
-
                 AppDatabase database = INSTANCE;
-                UserDao dao = database.userDao();
+
+                // Seed Users
+                UserDao userDao = database.userDao();
+                userDao.insertUser(new User("testuser1", "testuser1", false)); // normal user
+                userDao.insertUser(new User("admin2", "admin2", true));        // admin user
+
+                // Seed one sample ActivityLog (for testuser1)
                 ActivityLogDao logDao = database.activityLogDao();
-
-                // Preload required users for assignment
-                dao.insertUser(new User("testuser1", "testuser1", false));
-                dao.insertUser(new User("admin2", "admin2", true));
-
-                // Insert sample ActivityLog (constructor WITHOUT id)
                 logDao.insert(new ActivityLog(
-                        1,                       // userId
-                        "Steps",                 // type
-                        5000,                    // value
+                        1,                        // userId (testuser1 will get ID 1 in this fresh DB)
+                        "Steps",
+                        5000f,
                         System.currentTimeMillis()
+                ));
+
+                // Seed sample Challenges
+                ChallengeDao challengeDao = database.challengeDao();
+                challengeDao.insert(new Challenge(
+                        "7-Day Hydration",
+                        "Drink 8 cups of water every day for a week.",
+                        7
+                ));
+                challengeDao.insert(new Challenge(
+                        "Daily Steps",
+                        "Walk at least 5000 steps every day for 14 days.",
+                        14
                 ));
             });
         }

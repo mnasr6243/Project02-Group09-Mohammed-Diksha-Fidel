@@ -40,6 +40,12 @@
     <string name="activity_type_steps">Activity Type: Steps</string>
     <string name="value_5000">Value: 5000</string>
     <string name="logged_at_dec_09_10_00">Logged At: Dec 09, 10:00</string>
+    <string name="challenges">Challenges</string>
+    <string name="back2">Back</string>
+    <string name="drink_2_liters_of_water_daily">Drink 2 liters of water daily</string>
+    <string name="stay_hydrated">Stay Hydrated</string>
+    <string name="challenge_duration_days" />
+    <string name="challenges_title" />
 </resources>
 
 

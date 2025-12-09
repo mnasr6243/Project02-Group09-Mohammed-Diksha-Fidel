@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/adminTitle"
-        android:text="Admin Manager"
+        android:text="@string/admin_manager"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="24dp"
@@ -19,20 +19,20 @@
 
     <Button
         android:id="@+id/btnViewChallenges"
-        android:text="View Challenges"
+        android:text="@string/view_challenges"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btnAddChallenge"
-        android:text="Add New Challenge"
+        android:text="@string/add_new_challenge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
     <Button
         android:id="@+id/btnBackToMain"
-        android:text="Back to Main"
+        android:text="@string/back_to_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp" />

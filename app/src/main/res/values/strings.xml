@@ -11,6 +11,16 @@
     <string name="activity_type_e_g_steps_water">Activity Type (e.g., Steps, Water)</string>
     <string name="value_e_g_5000_8_5">Value (e.g., 5000, 8.5)</string>
     <string name="save_log">Save Log</string>
+    <string name="admin_manager">Admin Manager</string>
+    <string name="view_challenges">View Challenges</string>
+    <string name="add_new_challenge">Add New Challenge</string>
+    <string name="back_to_main">Back to Main</string>
+    <string name="create_account">Create Account</string>
+    <string name="new_username">New Username</string>
+    <string name="new_password">New Password</string>
+    <string name="register_as_admin">Register as Admin</string>
+    <string name="submit">Submit</string>
+    <string name="back">Back</string>
 </resources>
 
 

@@ -11,9 +11,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Calendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLogDao;
@@ -24,8 +28,9 @@ public class ActivityLogDaoTest {
     private ActivityLogDao activityLogDao;
     private AppDatabase db;
 
-    private final long DAY1 = 1000;
-    private final long DAY2 = 2000;
+    private final long DAY1 = 10000000;
+    private static final int USER_A = 10;
+    private static final int USER_B = 20;
 
     @Before
     public void createDb() {
@@ -41,40 +46,65 @@ public class ActivityLogDaoTest {
         db.close();
     }
 
-    // Database Test 1: Insert and Retrieve
+    // Test 1: Insert and Retrieve Logs for a specific day.
     @Test
     public void insertAndRetrieveLog() {
-        ActivityLog log = new ActivityLog(0, 1, "Steps", 5000, DAY1);
+        ActivityLog log = new ActivityLog(0, USER_A, "Steps", 5000, DAY1);
         activityLogDao.insert(log);
 
-        // Correct assertion: Only 1 log inserted in this method.
-        assertEquals(1, activityLogDao.getLogsForDay(1, 0, 3000).size());
-        assertEquals(5000, activityLogDao.getLogsForDay(1, 0, 3000).get(0).getValue(), 0.01);
+        // Assuming date range from 0 to DAY1 + 1 (using a large number for the end time)
+        List<ActivityLog> logs = activityLogDao.getLogsForDay(USER_A, 0, DAY1 + 1000);
+        assertEquals(1, logs.size());
+        assertEquals(5000, logs.get(0).getValue(), 0.01);
     }
 
-    // Database Test 2 & 3: Delete and Aggregate Query
+    // Test 2: Aggregate (SUM) activity values over a time range. (For StatsActivity logic)
     @Test
-    public void getTotalValueAndDeleteLog() {
-        // Test data
-        ActivityLog log1 = new ActivityLog(0, 1, "Steps", 1000, DAY1);
-        ActivityLog log2 = new ActivityLog(0, 1, "Steps", 2000, DAY1);
-        ActivityLog log3 = new ActivityLog(0, 2, "Steps", 500, DAY2);
+    public void aggregateTotalValueForRange() {
+        long endDate = System.currentTimeMillis();
+        long startDate = endDate - (7 * 24 * 60 * 60 * 1000L); // 7 days earlier
 
-        // ACTION: Insert logs and capture the generated ID for the one we intend to delete.
-        long log1Id = activityLogDao.insert(log1);
-        activityLogDao.insert(log2);
-        activityLogDao.insert(log3);
+        // Log 1 (in range): Steps 3000
+        activityLogDao.insert(new ActivityLog(0, USER_A, "Steps", 3000, endDate));
+        // Log 2 (in range): Steps 500
+        activityLogDao.insert(new ActivityLog(0, USER_A, "Steps", 500, endDate - 86400000));
+        // Log 3 (outside range): Steps 100
+        activityLogDao.insert(new ActivityLog(0, USER_A, "Steps", 100, startDate - 86400000));
 
-        // 1. Initial Aggregate Test (Total is 3000)
-        float totalBeforeDelete = activityLogDao.getTotalValueForDateRange(1, "Steps", 0, 3000);
-        assertEquals(3000, totalBeforeDelete, 0.01);
+        // Get total steps for the date range (sum should be 3000 + 500 = 3500)
+        float totalSteps = activityLogDao.getTotalValueForDateRange(USER_A, "Steps", startDate, endDate);
 
-        // 2. Delete test: We set the generated primary key (ID) back into the object before deleting.
-        log1.setId((int) log1Id);
-        activityLogDao.delete(log1);
+        assertEquals("Total sum should be 3500", 3500, totalSteps, 0.1);
+    }
 
-        // 3. Final Aggregate Test (Should be 2000 after deleting log1)
-        float totalAfterDelete = activityLogDao.getTotalValueForDateRange(1, "Steps", 0, 3000);
-        assertEquals(2000, totalAfterDelete, 0.01);
+    // Test 3: Verify logs are filtered correctly by user ID.
+    @Test
+    public void filterLogsByUserId() {
+        // Log for User A
+        activityLogDao.insert(new ActivityLog(0, USER_A, "Steps", 100, DAY1));
+        // Log for User B (should be ignored when querying for USER_A)
+        activityLogDao.insert(new ActivityLog(0, USER_B, "Steps", 500, DAY1));
+
+        // Retrieve logs for User A only (should be 1 log)
+        List<ActivityLog> logsA = activityLogDao.getLogsForDay(USER_A, 0, DAY1 + 1000);
+        assertEquals(1, logsA.size());
+        assertEquals(100, logsA.get(0).getValue(), 0.01);
+    }
+
+    // Test 4: Delete a specific log entry by ID.
+    @Test
+    public void deleteLogEntryById() {
+        long timestamp = System.currentTimeMillis();
+        ActivityLog log = new ActivityLog(0, USER_A, "Running", 60, timestamp);
+
+        // 1. Insert the log and get the auto-generated ID
+        long logId = activityLogDao.insert(log);
+
+        // 2. Delete the log using its ID
+        activityLogDao.deleteLogById((int) logId);
+
+        // 3. Verify log was deleted (list should be empty)
+        List<ActivityLog> finalLogs = activityLogDao.getLogsForDay(USER_A, timestamp - 1000, timestamp + 1000);
+        assertTrue("Log list should be empty after deletion", finalLogs.isEmpty());
     }
 }

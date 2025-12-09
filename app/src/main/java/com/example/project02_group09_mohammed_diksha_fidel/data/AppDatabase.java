@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutorService;
                 Challenge.class,
                 Participation.class
         },
-        version = 4, // Higher version to ensure no migration issues with combined tables
+        version = 4, // Final version number set high enough
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -46,7 +46,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     "zentrack.db"
                             )
-                            // Keeps the most permissive settings for testing/development
+                            // Keeps the most permissive settings for development
                             .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .addCallback(preloadCallback)
@@ -57,7 +57,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    // Runs when the database is first created
+    // Runs when the database is first created (with preloaded data)
     private static final Callback preloadCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -65,10 +65,16 @@ public abstract class AppDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 AppDatabase database = INSTANCE;
                 UserDao dao = database.userDao();
+                ChallengeDao challengeDao = database.challengeDao(); // Get DAO for Challenges
 
                 // Predefined users added here for testing
                 dao.insertUser(new User("testuser1", "testuser1", false)); // Non-admin user
                 dao.insertUser(new User("admin2", "admin2", true));       // Admin user
+
+                // Add Sample Challenges for testing/display
+                challengeDao.insertChallenge(new Challenge("Walk 10k Steps Daily", "Achieve 10,000 steps every day for one week.", 0, 7));
+                challengeDao.insertChallenge(new Challenge("Run 5 Miles", "Complete a single 5-mile run this weekend.", 1, 1));
+                challengeDao.insertChallenge(new Challenge("Meditate 30 Days", "Meditate for at least 10 minutes every day for one month.", 2, 30));
 
                 // Add sample log for testing the new table
                 ActivityLogDao logDao = database.activityLogDao();

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvCreateTitle"
+        android:text="Create Account"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/etNewUsername"
+    android:hint="New Username"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/etNewPassword"
+    android:hint="New Password"
+    android:inputType="textPassword"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/cbIsAdmin"
+    android:text="Register as Admin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnSubmitCreate"
+    android:text="Submit"
+    android:layout_marginTop="24dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnBackFromCreate"
+    android:text="Back"
+    android:layout_marginTop="12dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+</LinearLayout>

@@ -68,7 +68,7 @@
         android:id="@+id/btnBackToMainStats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Back to Main"
+        android:text="Back"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

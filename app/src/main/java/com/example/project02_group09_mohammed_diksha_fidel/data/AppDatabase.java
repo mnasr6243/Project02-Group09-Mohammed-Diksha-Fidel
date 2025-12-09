@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
-// This is the main database class for the whole app.
+// This is the main database class. (Version changed to 4)
 @Database(entities = {User.class, ActivityLog.class}, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -19,13 +19,16 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
+    // Runs database tasks in the background
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
+    // Gets the database instance
     public static AppDatabase get(Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
+                    // Builds the database file
                     INSTANCE = Room.databaseBuilder(
                                     context.getApplicationContext(),
                                     AppDatabase.class,
@@ -33,6 +36,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             )
                             .allowMainThreadQueries()
                             .addCallback(preloadCallback)
+                            // Wipes and recreates the tables if the version changes
                             .fallbackToDestructiveMigration()
                             .build();
                 }
@@ -41,6 +45,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    // Runs when the database is first created
     private static final Callback preloadCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -49,12 +54,11 @@ public abstract class AppDatabase extends RoomDatabase {
                 AppDatabase database = INSTANCE;
                 UserDao dao = database.userDao();
 
-                // FIX: Corrected usernames to standard "testuser" and "admin"
-                // while retaining your complex passwords for security/assignment tracking.
+                // Predefined users added here for testing
                 dao.insertUser(new User("testuser1", "testuser1", false)); // Non-admin user
                 dao.insertUser(new User("admin2", "admin2", true));       // Admin user
 
-                // Add an initial activity log example for testing the new table
+                // Add sample log for testing the new table
                 ActivityLogDao logDao = database.activityLogDao();
                 logDao.insert(new ActivityLog(0,1,"Steps",5000,System.currentTimeMillis()
                 ));

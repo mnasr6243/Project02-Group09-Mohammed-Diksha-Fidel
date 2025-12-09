@@ -6,9 +6,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.project02_group09_mohammed_diksha_fidel.R; // Ensure R is imported
+import com.example.project02_group09_mohammed_diksha_fidel.R;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
-// Import for the Repository class in the repository package
 import com.example.project02_group09_mohammed_diksha_fidel.repository.ActivityRepository;
 
 
@@ -23,7 +22,7 @@ public class AddLogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Instantiating ActivityRepository
+        // Connect to the database repository
         activityRepository = new ActivityRepository(getApplication());
 
         activityTypeInput = findViewById(R.id.textViewActivityType);
@@ -44,16 +43,16 @@ public class AddLogActivity extends AppCompatActivity {
 
         try {
             float value = Float.parseFloat(valueStr);
+            // Hardcoded to test user ID 1 for now
             int currentUserId = 1;
 
-            // FIX: Only declare newLog once, using the 5-argument constructor
-            // with '0' for the auto-generated ID.
+            // Create the new log entry
             ActivityLog newLog = new ActivityLog(0, currentUserId, type, value, System.currentTimeMillis());
 
             activityRepository.insert(newLog);
 
             Toast.makeText(this, "Activity saved successfully!", Toast.LENGTH_SHORT).show();
-            finish(); // Closes the activity
+            finish(); // Close the screen
 
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Value must be a number.", Toast.LENGTH_SHORT).show();

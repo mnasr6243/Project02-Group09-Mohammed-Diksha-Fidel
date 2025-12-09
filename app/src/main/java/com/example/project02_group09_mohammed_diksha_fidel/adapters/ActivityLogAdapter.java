@@ -11,28 +11,28 @@ import com.example.project02_group09_mohammed_diksha_fidel.R;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList; // REQUIRED IMPORT for the empty list
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-// The Adapter class connects your list of ActivityLog objects to the RecyclerView.
+// Adapter connects the activity data to the list view (RecyclerView).
 public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.LogViewHolder> {
 
     private List<ActivityLog> logList;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault());
 
-    // 1. ADDED: Default, no-argument constructor (Required by DailyLogActivity)
+    // Basic constructor for the adapter
     public ActivityLogAdapter() {
-        this.logList = new ArrayList<>(); // Initialize as an empty list
+        this.logList = new ArrayList<>(); // Start with an empty list
     }
 
-    // 2. Original constructor (Kept for completeness, though not currently used by DailyLogActivity)
+    // Constructor that takes a list of data
     public ActivityLogAdapter(List<ActivityLog> logList) {
         this.logList = logList;
     }
 
-    // Use this method in DailyLogActivity's onResume to update the data
+    // Update the data in the list and refresh the view
     public void setLogs(List<ActivityLog> newLogs) {
         this.logList = newLogs;
         notifyDataSetChanged();
@@ -41,7 +41,7 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
     @NonNull
     @Override
     public LogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflates the layout you created (item_activity_log.xml)
+        // Loads the single item layout (item_activity_log.xml)
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_activity_log, parent, false);
         return new LogViewHolder(view);
@@ -55,11 +55,11 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
 
     @Override
     public int getItemCount() {
-        // Corrected null check to use the empty list from the new constructor
+        // Returns how many items are in the list
         return logList.size();
     }
 
-    // The ViewHolder holds the views (TextViews) for a single item in the list.
+    // This class holds the view elements for one item.
     static class LogViewHolder extends RecyclerView.ViewHolder {
         private final TextView typeTextView;
         private final TextView valueTextView;
@@ -74,8 +74,9 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
 
         public void bind(ActivityLog log, SimpleDateFormat dateFormat) {
             typeTextView.setText("Activity Type: " + log.getType());
-            // Show value as a string, formatted to one decimal place
+            // Format the value to one decimal place
             valueTextView.setText("Value: " + String.format(Locale.getDefault(), "%.1f", log.getValue()));
+            // Format the timestamp for display
             timestampTextView.setText("Logged At: " + dateFormat.format(new Date(log.getTimestamp())));
         }
     }

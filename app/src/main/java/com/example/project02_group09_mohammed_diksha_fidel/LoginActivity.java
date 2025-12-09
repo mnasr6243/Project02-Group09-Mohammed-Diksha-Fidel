@@ -25,17 +25,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Init helpers
+        // Set up helpers
         userDao = AppDatabase.get(this).userDao();
         session = new SessionManager(this);
 
-        // Bind views
+        // Connect screen elements
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         Button btnLoginSubmit = findViewById(R.id.btnLoginSubmit);
         Button btnBack = findViewById(R.id.btnBack);
 
-        // Login button logic
+        // What happens when the login button is clicked
         btnLoginSubmit.setOnClickListener(v -> {
             String username = etUsername.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            // Query Room DB for user
+            // Check the database for the user
             User user = userDao.getUserByUsername(username);
 
             if (user == null || !user.getPassword().equals(password)) {
@@ -53,16 +53,16 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            // Save session (username + admin flag)
-            session.saveSession(user.getUsername(), user.isAdmin());
+            // Save the user session (ID, name, and admin status)
+            session.saveSession(user.getId(), user.getUsername(), user.isAdmin());
 
-            // Go to LandingPageActivity
+            // Go to the main landing page
             Intent intent = new Intent(LoginActivity.this, LandingPageActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Back button → return to MainActivity
+        // Back button returns to the home screen
         btnBack.setOnClickListener(v -> finish());
     }
 }

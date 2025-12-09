@@ -9,10 +9,10 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     private int userId;
 
-    private String username;   // String username
-    private String password;   // String password
+    private String username;   // User's name
+    private String password;   // User's password
 
-    private boolean isAdmin;   // for login/admin logic
+    private boolean isAdmin;   // True if the user is an admin
 
     public User(String username, String password, boolean isAdmin) {
         this.username = username;
@@ -23,6 +23,11 @@ public class User {
     // Getters and setters
 
     public int getUserId() {
+        return userId;
+    }
+
+    // Returns the primary key ID
+    public int getId() {
         return userId;
     }
 

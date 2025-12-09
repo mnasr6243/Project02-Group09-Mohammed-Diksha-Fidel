@@ -22,22 +22,22 @@ public class DailyLogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // NOTE: Ensure your layout XML file for this activity is named activity_daily_log.xml
+        // Set the screen layout
         setContentView(R.layout.activity_daily_log);
 
-        // Initialize helpers
+        // Get the helpers
         activityRepository = new ActivityRepository(getApplication());
         sessionManager = new SessionManager(this);
 
-        // Setup RecyclerView
+        // Set up the list view
         recyclerView = findViewById(R.id.dailyLogRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize and Set Adapter
+        // Create and attach the adapter
         adapter = new ActivityLogAdapter();
         recyclerView.setAdapter(adapter);
 
-        // Load data on startup
+        // Load the logs on startup
         loadDailyLogs();
     }
 
@@ -48,13 +48,13 @@ public class DailyLogActivity extends AppCompatActivity {
     }
 
     private void loadDailyLogs() {
-        // Fetch the logged-in user's ID
+        // Get the current user's ID
         int currentUserId = sessionManager.getCurrentUserId();
 
         activityRepository.getDailyLogsForUser(currentUserId, System.currentTimeMillis(), new ActivityRepository.OnLogsLoadedListener() {
             @Override
             public void onLogsLoaded(List<ActivityLog> logs) {
-                // Must switch back to the main thread to update the UI
+                // Must update the list on the main screen thread
                 runOnUiThread(() -> {
                     adapter.setLogs(logs);
                 });

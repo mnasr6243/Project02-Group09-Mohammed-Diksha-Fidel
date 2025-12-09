@@ -6,13 +6,13 @@ import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLogDao;
 import com.example.project02_group09_mohammed_diksha_fidel.data.AppDatabase;
 
-import java.util.Calendar; // REQUIRED IMPORT
+import java.util.Calendar; // Used for date calculations
 import java.util.List;
 
 public class ActivityRepository {
     private final ActivityLogDao activityLogDao;
 
-    // INTERFACE: Used to send the query results back to the Activity (Must be public inside the class)
+    // Interface to send database results back to the activity
     public interface OnLogsLoadedListener {
         void onLogsLoaded(List<ActivityLog> logs);
     }
@@ -23,12 +23,13 @@ public class ActivityRepository {
     }
 
     public void insert(ActivityLog log) {
+        // Run the insert operation in the background
         AppDatabase.databaseWriteExecutor.execute(() -> {
             activityLogDao.insert(log);
         });
     }
 
-    // ASYNCHRONOUS Read Operations (Used by DailyLogActivity)
+    // Get all logs for a specific user and day in the background
     public void getDailyLogsForUser(int userId, long date, OnLogsLoadedListener listener) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             long startOfDay = calculateStartOfDay(date);
@@ -39,7 +40,7 @@ public class ActivityRepository {
         });
     }
 
-    // Helper Method 1: Calculates the start time of the current day (00:00:00)
+    // Helper: Calculate the start time of the day (00:00:00)
     private long calculateStartOfDay(long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
@@ -50,7 +51,7 @@ public class ActivityRepository {
         return calendar.getTimeInMillis();
     }
 
-    // Helper Method 2: Calculates the end time of the current day (23:59:59)
+    // Helper: Calculate the end time of the day (23:59:59)
     private long calculateEndOfDay(long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);

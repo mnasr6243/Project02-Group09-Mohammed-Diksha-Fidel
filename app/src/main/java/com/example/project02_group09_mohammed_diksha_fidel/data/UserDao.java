@@ -17,11 +17,11 @@ public interface UserDao {
     void insertUsers(List<User> users);
 
     @Query("SELECT * FROM User WHERE userId = :id")
-    User getUserById(int id);  // get user by ID
+    User getUserById(int id);  // Get user by their ID
 
     @Query("SELECT * FROM User WHERE username = :username LIMIT 1")
-    User getUserByUsername(String username);  // get user by username
+    User getUserByUsername(String username);  // Get user by their username (for login)
 
     @Query("DELETE FROM User")
-    void deleteAll();
+    void deleteAll(); // Delete all users (for testing/cleanup)
 }

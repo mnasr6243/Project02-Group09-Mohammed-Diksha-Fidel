@@ -14,28 +14,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 1. Check if user already logged in using SharedPreferences
+        // 1. Check if a user is already logged in
         SessionManager session = new SessionManager(this);
         if (session.isLoggedIn()) {
             startActivity(new Intent(MainActivity.this, LandingPageActivity.class));
-            finish(); // block back button to avoid returning to Main
+            finish(); // block back button
             return;
         }
 
-        // 2. Load the correct layout for MainActivity
+        // 2. Load the main layout
         setContentView(R.layout.activity_main);
 
         // Buttons required by assignment:
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
 
-        // 3. Login button → LoginActivity
+        // 3. Login button sends to the login screen
         btnLogin.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         });
 
-        // 4. Create Account button (can be placeholder for now)
+        // 4. Create Account button sends to the account creation screen (LoginActivity for now)
         btnCreateAccount.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         });

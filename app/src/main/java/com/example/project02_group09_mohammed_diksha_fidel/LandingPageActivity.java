@@ -24,6 +24,7 @@ public class LandingPageActivity extends AppCompatActivity {
 
         tv.setText("Welcome " + session.getUsername());
 
+        // Only show Admin button if user is an admin
         if (session.isAdmin()) {
             btnAdmin.setVisibility(View.VISIBLE);
         }

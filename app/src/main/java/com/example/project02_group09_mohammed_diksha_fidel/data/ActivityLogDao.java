@@ -12,11 +12,11 @@ public interface ActivityLogDao {
     @Insert
     void insert(ActivityLog log);
 
-    // 1. Query for Daily Log Activity
+    // 1. Get logs for the Daily Log screen
     @Query("SELECT * FROM activitylog WHERE userId = :userId AND timestamp BETWEEN :startOfDay AND :endOfDay ORDER BY timestamp DESC")
-    List<ActivityLog> getLogsForDay(int userId, long startOfDay, long endOfDay); // Must be correct
+    List<ActivityLog> getLogsForDay(int userId, long startOfDay, long endOfDay);
 
-    // 2. Query for Stats Activity
+    // 2. Get the total sum of values for the Stats screen
     @Query("SELECT SUM(value) FROM activitylog WHERE userId = :userId AND type = :activityType AND timestamp BETWEEN :startDate AND :endDate")
     float getTotalValueForDateRange(int userId, String activityType, long startDate, long endDate);
 }

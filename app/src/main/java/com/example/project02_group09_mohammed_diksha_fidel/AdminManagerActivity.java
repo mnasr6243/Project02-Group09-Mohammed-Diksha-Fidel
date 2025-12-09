@@ -17,30 +17,26 @@ public class AdminManagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //EdgeToEdge.enable(this);
+        // Removed commented-out system bar code for cleanliness
         setContentView(R.layout.activity_admin_manager);
-
-        //View root = findViewById(R.id.main);
-        //ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
-            //Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            //v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            //return insets;
-        //});
 
         Button viewChallenges = findViewById(R.id.btnViewChallenges);
         Button addChallenge   = findViewById(R.id.btnAddChallenge);
         Button backToMain     = findViewById(R.id.btnBackToMain);
 
         viewChallenges.setOnClickListener(v -> {
+            // Go to Challenges screen
             Intent intent = new Intent(AdminManagerActivity.this, ChallengesActivity.class);
             startActivity(intent);
         });
 
         addChallenge.setOnClickListener(v ->
+                // Placeholder for Add Challenge
                 Toast.makeText(this, "Add Challenge feature coming soon", Toast.LENGTH_SHORT).show()
         );
 
         backToMain.setOnClickListener(v -> {
+            // Go back to the main screen
             Intent intent = new Intent(AdminManagerActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

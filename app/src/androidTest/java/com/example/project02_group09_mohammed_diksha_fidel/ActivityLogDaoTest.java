@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLogDao;
@@ -44,7 +43,8 @@ public class ActivityLogDaoTest {
     // Database Test 1: Insert and Retrieve
     @Test
     public void insertAndRetrieveLog() {
-        ActivityLog log = new ActivityLog(0, 1, "Steps", 5000, DAY1);
+        // Constructor now: ActivityLog(int userId, String type, float value, long timestamp)
+        ActivityLog log = new ActivityLog(1, "Steps", 5000, DAY1);
         activityLogDao.insert(log);
 
         // Correct assertion: Only 1 log inserted in this method.
@@ -56,9 +56,9 @@ public class ActivityLogDaoTest {
     @Test
     public void getTotalValueAndDeleteLog() {
         // Test data
-        ActivityLog log1 = new ActivityLog(0, 1, "Steps", 1000, DAY1);
-        ActivityLog log2 = new ActivityLog(0, 1, "Steps", 2000, DAY1);
-        ActivityLog log3 = new ActivityLog(0, 2, "Steps", 500, DAY2);
+        ActivityLog log1 = new ActivityLog(1, "Steps", 1000, DAY1);
+        ActivityLog log2 = new ActivityLog(1, "Steps", 2000, DAY1);
+        ActivityLog log3 = new ActivityLog(2, "Steps", 500, DAY2);
 
         // ACTION: Insert logs and capture the generated ID for the one we intend to delete.
         long log1Id = activityLogDao.insert(log1);

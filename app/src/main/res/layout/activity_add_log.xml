@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add New Activity Log"
+        android:text="@string/add_new_activity_log"
         android:textSize="24sp"
         android:layout_marginBottom="16dp" />
 
@@ -18,7 +18,7 @@
         android:id="@+id/editTextActivityType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Activity Type (e.g., Steps, Water)"
+        android:hint="@string/activity_type_e_g_steps_water"
         android:inputType="textCapWords"
         android:layout_marginBottom="16dp" />
 
@@ -26,7 +26,7 @@
         android:id="@+id/editTextValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Value (e.g., 5000, 8.5)"
+        android:hint="@string/value_e_g_5000_8_5"
         android:inputType="numberDecimal"
         android:layout_marginBottom="24dp" />
 
@@ -34,6 +34,6 @@
         android:id="@+id/buttonSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Log" />
+        android:text="@string/save_log" />
 
 </LinearLayout>

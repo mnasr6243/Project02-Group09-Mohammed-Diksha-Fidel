@@ -7,6 +7,10 @@
 
     <string name="welcome_message">Welcome</string>
     <string name="logout">Logout</string>
+    <string name="add_new_activity_log">Add New Activity Log</string>
+    <string name="activity_type_e_g_steps_water">Activity Type (e.g., Steps, Water)</string>
+    <string name="value_e_g_5000_8_5">Value (e.g., 5000, 8.5)</string>
+    <string name="save_log">Save Log</string>
 </resources>
 
 

@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 4. Create Account button sends to the account creation screen (LoginActivity for now)
         btnCreateAccount.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            Intent intent = new Intent(this, CreateAccountActivity.class);
+            startActivity(intent);
         });
     }
 }

@@ -11,6 +11,7 @@ import com.example.project02_group09_mohammed_diksha_fidel.R;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList; // REQUIRED IMPORT for the empty list
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -19,8 +20,14 @@ import java.util.Locale;
 public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.LogViewHolder> {
 
     private List<ActivityLog> logList;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()); // Moved constant up
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault());
 
+    // 1. ADDED: Default, no-argument constructor (Required by DailyLogActivity)
+    public ActivityLogAdapter() {
+        this.logList = new ArrayList<>(); // Initialize as an empty list
+    }
+
+    // 2. Original constructor (Kept for completeness, though not currently used by DailyLogActivity)
     public ActivityLogAdapter(List<ActivityLog> logList) {
         this.logList = logList;
     }
@@ -48,7 +55,8 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
 
     @Override
     public int getItemCount() {
-        return logList != null ? logList.size() : 0;
+        // Corrected null check to use the empty list from the new constructor
+        return logList.size();
     }
 
     // The ViewHolder holds the views (TextViews) for a single item in the list.
@@ -65,7 +73,7 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
         }
 
         public void bind(ActivityLog log, SimpleDateFormat dateFormat) {
-            typeTextView.setText("Activity Type: " + log.getActivityType());
+            typeTextView.setText("Activity Type: " + log.getType());
             // Show value as a string, formatted to one decimal place
             valueTextView.setText("Value: " + String.format(Locale.getDefault(), "%.1f", log.getValue()));
             timestampTextView.setText("Logged At: " + dateFormat.format(new Date(log.getTimestamp())));

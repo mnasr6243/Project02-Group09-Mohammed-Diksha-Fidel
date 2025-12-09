@@ -18,22 +18,31 @@
         android:id="@+id/editTextActivityType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:autofillHints=""
         android:hint="@string/activity_type_e_g_steps_water"
         android:inputType="textCapWords"
-        android:layout_marginBottom="16dp" />
+        android:minHeight="48dp"
+        android:textColorHint="#263238"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/editTextValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:autofillHints=""
         android:hint="@string/value_e_g_5000_8_5"
         android:inputType="numberDecimal"
-        android:layout_marginBottom="24dp" />
+        android:minHeight="48dp"
+        android:textColorHint="#263238"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <Button
         android:id="@+id/buttonSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save_log" />
+        android:text="@string/save_log"
+        tools:ignore="VisualLintButtonSize" />
 
 </LinearLayout>

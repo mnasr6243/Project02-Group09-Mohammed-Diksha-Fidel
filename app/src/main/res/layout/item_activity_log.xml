@@ -21,7 +21,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="Activity Type: Steps" />
+            android:text="@string/activity_type_steps" />
 
         <TextView
             android:id="@+id/textViewActivityValue"
@@ -29,16 +29,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="16sp"
-            android:text="Value: 5000" />
+            android:text="@string/value_5000" />
 
         <TextView
             android:id="@+id/textViewTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="12sp"
-            android:textColor="#808080"
-            android:text="Logged At: Dec 09, 10:00" />
+            android:text="@string/logged_at_dec_09_10_00"
+            android:textColor="#757575"
+            android:textSize="12sp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

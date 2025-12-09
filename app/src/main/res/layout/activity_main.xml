@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/txtWelcome"
-        android:text="ZenTrack"
+        android:text="@string/zentrack"
         android:textSize="50sp"
         android:textStyle="bold"
         android:layout_marginBottom="40dp"
@@ -17,13 +17,13 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:text="Login"
+        android:text="@string/login2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnCreateAccount"
-        android:text="Create Account"
+        android:text="@string/create_account1"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

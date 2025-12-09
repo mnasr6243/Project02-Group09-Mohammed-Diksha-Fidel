@@ -12,14 +12,14 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Daily Activity Log"
+        android:layout_marginTop="16dp"
+        android:text="@string/daily_activity_log"
+        android:textColor="#6D4C41"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/text_light_contrast"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dailyLogRecyclerView"
@@ -37,10 +37,11 @@
         android:id="@+id/btnBackToMainDaily"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Back to Main"
+        android:text="@string/back_to_main1"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="VisualLintButtonSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

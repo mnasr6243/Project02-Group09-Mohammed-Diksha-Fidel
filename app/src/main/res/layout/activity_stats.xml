@@ -12,7 +12,7 @@
         android:id="@+id/textViewStatsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weekly Activity Summary"
+        android:text="@string/weekly_activity_summary"
         android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Total Activity Logged:"
+                android:text="@string/total_activity_logged"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -57,7 +57,7 @@
                 android:id="@+id/textViewWeeklySteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weekly Steps: 5000"
+                android:text="@string/weekly_steps_5000"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="normal" />
@@ -68,10 +68,11 @@
         android:id="@+id/btnBackToMainStats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Back to Main"
+        android:text="@string/back_to_main2"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="VisualLintButtonSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

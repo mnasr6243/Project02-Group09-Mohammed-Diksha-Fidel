@@ -21,6 +21,25 @@
     <string name="register_as_admin">Register as Admin</string>
     <string name="submit">Submit</string>
     <string name="back">Back</string>
+    <string name="daily_activity_log">Daily Activity Log</string>
+    <string name="back_to_main1">Back to Main</string>
+    <string name="view_statistics">View Statistics</string>
+    <string name="view_daily_log">View Daily Log</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login1">Login</string>
+    <string name="back1">Back</string>
+    <string name="zentrack">ZenTrack</string>
+    <string name="login2">Login</string>
+    <string name="create_account1">Create Account</string>
+    <string name="weekly_activity_summary">Weekly Activity Summary</string>
+    <string name="total_activity_logged">Total Activity Logged:</string>
+    <string name="weekly_steps_5000">Weekly Steps: 5000</string>
+    <string name="back_to_main2">Back to Main</string>
+    <string name="activity_type_steps">Activity Type: Steps</string>
+    <string name="value_5000">Value: 5000</string>
+    <string name="logged_at_dec_09_10_00">Logged At: Dec 09, 10:00</string>
 </resources>
 
 

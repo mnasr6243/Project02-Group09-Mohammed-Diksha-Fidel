@@ -66,12 +66,12 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:text="View Daily Log"
+        android:text="@string/view_daily_log"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnAdmin"
         app:layout_constraintBottom_toTopOf="@id/btnStats"
-        />
+        tools:ignore="VisualLintButtonSize" />
 
     <Button
         android:id="@+id/btnStats"
@@ -80,12 +80,12 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:text="View Statistics"
+        android:text="@string/view_statistics"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnDailyLog"
         app:layout_constraintBottom_toTopOf="@id/btnLogout"
-        />
+        tools:ignore="VisualLintButtonSize" />
 
     <Button
         android:id="@+id/btnLogout"
@@ -99,6 +99,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnStats"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        tools:ignore="VisualLintButtonSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,20 +22,23 @@
         android:id="@+id/btnViewChallenges"
         android:text="@string/view_challenges"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:ignore="VisualLintButtonSize" />
 
     <Button
         android:id="@+id/btnAddChallenge"
         android:text="@string/add_new_challenge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        tools:ignore="VisualLintButtonSize" />
 
     <Button
         android:id="@+id/btnBackToMain"
         android:text="@string/back_to_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="24dp"
+        tools:ignore="VisualLintButtonSize" />
 
 </LinearLayout>

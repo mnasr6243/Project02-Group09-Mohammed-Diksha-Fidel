@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
-    private int userId;   // int with @PrimaryKey
+    private int userId;
 
     private String username;   // String username
     private String password;   // String password

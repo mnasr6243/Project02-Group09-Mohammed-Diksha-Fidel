@@ -55,7 +55,13 @@ public class AddLogActivity extends AppCompatActivity {
             int currentUserId = 1;
 
             // Create the new log entry object with the current timestamp.
-            ActivityLog newLog = new ActivityLog(0, currentUserId, type, value, System.currentTimeMillis());
+            // IMPORTANT FIX: Removed the incorrect 'id' parameter.
+            ActivityLog newLog = new ActivityLog(
+                    currentUserId,
+                    type,
+                    value,
+                    System.currentTimeMillis()
+            );
 
             // Calls the repository to save the data in the background.
             activityRepository.insert(newLog);

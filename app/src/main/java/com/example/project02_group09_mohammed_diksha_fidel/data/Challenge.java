@@ -9,9 +9,9 @@ public class Challenge {
     @PrimaryKey(autoGenerate = true)
     private int challengeId;
 
-    private String title;
-    private String description;
-    private int durationDays; // e.g. 7, 14, 30
+    private final String title;
+    private final String description;
+    private final int durationDays; // e.g. 7, 14, 30
 
     public Challenge(String title, String description, int durationDays) {
         this.title = title;

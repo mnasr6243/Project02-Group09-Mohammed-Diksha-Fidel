@@ -19,11 +19,6 @@ import java.util.List;
 // Adapter to display ActivityLog entries in the Daily Log RecyclerView.
 public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.LogViewHolder> {
 
-    // Listener for when a log is tapped (for editing)
-    public interface OnLogClickListener {
-        void onLogClicked(ActivityLog log);
-    }
-
     private final List<ActivityLog> logs = new ArrayList<>();
     private OnLogClickListener logClickListener;
 
@@ -68,6 +63,11 @@ public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.
     @Override
     public int getItemCount() {
         return logs.size();
+    }
+
+    // Listener for when a log is tapped (for editing)
+    public interface OnLogClickListener {
+        void onLogClicked(ActivityLog log);
     }
 
     static class LogViewHolder extends RecyclerView.ViewHolder {

@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.project02_group09_mohammed_diksha_fidel.session.SessionManager;
+
 import com.example.project02_group09_mohammed_diksha_fidel.session.DailyLogActivity;
+import com.example.project02_group09_mohammed_diksha_fidel.session.SessionManager;
 import com.example.project02_group09_mohammed_diksha_fidel.session.StatsActivity;
 
 // This is the user's main dashboard after successful login.

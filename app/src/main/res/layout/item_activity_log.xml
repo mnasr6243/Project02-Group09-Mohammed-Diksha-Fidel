@@ -18,18 +18,18 @@
             android:id="@+id/textViewActivityType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:text="@string/activity_type_steps"
             android:textColor="@color/black"
-            android:text="@string/activity_type_steps" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewActivityValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="16sp"
-            android:text="@string/value_5000" />
+            android:text="@string/value_5000"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textViewTimestamp"

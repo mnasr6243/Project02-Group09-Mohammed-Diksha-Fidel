@@ -11,14 +11,6 @@ import java.util.List;
 // Repository for admin user management (list + delete).
 public class UserRepository {
 
-    public interface OnUsersLoadedListener {
-        void onUsersLoaded(List<User> users);
-    }
-
-    public interface OnUserDeletedListener {
-        void onUserDeleted();
-    }
-
     private final UserDao userDao;
 
     public UserRepository(Application application) {
@@ -40,5 +32,13 @@ public class UserRepository {
             userDao.deleteUser(user);
             listener.onUserDeleted();
         });
+    }
+
+    public interface OnUsersLoadedListener {
+        void onUsersLoaded(List<User> users);
+    }
+
+    public interface OnUserDeletedListener {
+        void onUserDeleted();
     }
 }

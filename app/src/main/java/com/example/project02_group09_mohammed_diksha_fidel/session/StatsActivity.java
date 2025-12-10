@@ -1,11 +1,11 @@
 package com.example.project02_group09_mohammed_diksha_fidel.session;
 
 import android.os.Bundle;
-import android.view.MenuItem; // Import for the back button handler
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull; // Import for checking non-null objects/parameters
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project02_group09_mohammed_diksha_fidel.R;
@@ -45,9 +45,9 @@ public class StatsActivity extends AppCompatActivity {
         activityRepository = new ActivityRepository(getApplication());
 
         // Connects the UI elements for displaying the results
-        textViewWeeklySteps    = findViewById(R.id.textViewWeeklySteps);
+        textViewWeeklySteps = findViewById(R.id.textViewWeeklySteps);
         textViewWeeklyExercise = findViewById(R.id.textViewWeeklySteps1);
-        textViewWeeklySleep    = findViewById(R.id.textViewWeeklySteps2);
+        textViewWeeklySleep = findViewById(R.id.textViewWeeklySteps2);
 
         // Initiates the data loading process when the screen is created
         loadWeeklyStats();

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project02_group09_mohammed_diksha_fidel.adapters.AdminUserAdapter;
-import com.example.project02_group09_mohammed_diksha_fidel.data.User;
 import com.example.project02_group09_mohammed_diksha_fidel.repository.UserRepository;
 
 // Admin-only screen: shows all users with a Delete button.

@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="Duration: 7 days"
+            android:textColor="#555555"
             android:textSize="14sp"
-            android:textStyle="italic"
-            android:textColor="#555555" />
+            android:textStyle="italic" />
 
         <Button
             android:id="@+id/btnJoinChallenge"

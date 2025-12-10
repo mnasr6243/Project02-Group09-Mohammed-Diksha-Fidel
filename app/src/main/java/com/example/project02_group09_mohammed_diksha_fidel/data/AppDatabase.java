@@ -20,38 +20,11 @@ import java.util.concurrent.Executors;
 )
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract UserDao userDao();
-    public abstract ActivityLogDao activityLogDao();
-    public abstract ChallengeDao challengeDao();
-    public abstract ParticipationDao participationDao();
-
-    private static volatile AppDatabase INSTANCE;
-
     private static final int NUMBER_OF_THREADS = 4;
     // Executor for background DB work
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-
-    // Singleton getter
-    public static AppDatabase get(Context context) {
-        if (INSTANCE == null) {
-            synchronized (AppDatabase.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(
-                                    context.getApplicationContext(),
-                                    AppDatabase.class,
-                                    "zentrack.db"
-                            )
-                            .allowMainThreadQueries()               // OK for this class project
-                            .addCallback(preloadCallback)           // Seed initial data
-                            .fallbackToDestructiveMigration()       // Reset DB on version change
-                            .build();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
+    private static volatile AppDatabase INSTANCE;
     // Runs the first time the DB is created
     private static final Callback preloadCallback = new Callback() {
         @Override
@@ -90,4 +63,32 @@ public abstract class AppDatabase extends RoomDatabase {
             });
         }
     };
+
+    // Singleton getter
+    public static AppDatabase get(Context context) {
+        if (INSTANCE == null) {
+            synchronized (AppDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(
+                                    context.getApplicationContext(),
+                                    AppDatabase.class,
+                                    "zentrack.db"
+                            )
+                            .allowMainThreadQueries()               // OK for this class project
+                            .addCallback(preloadCallback)           // Seed initial data
+                            .fallbackToDestructiveMigration()       // Reset DB on version change
+                            .build();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    public abstract UserDao userDao();
+
+    public abstract ActivityLogDao activityLogDao();
+
+    public abstract ChallengeDao challengeDao();
+
+    public abstract ParticipationDao participationDao();
 }

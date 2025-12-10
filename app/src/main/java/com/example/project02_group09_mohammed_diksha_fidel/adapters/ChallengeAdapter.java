@@ -1,5 +1,6 @@
 package com.example.project02_group09_mohammed_diksha_fidel.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder> {
-
-    // Listener so the Activity can handle join/leave click.
-    public interface OnJoinLeaveClickListener {
-        void onJoinClicked(Challenge challenge);
-        void onLeaveClicked(Challenge challenge);
-    }
 
     private final List<Challenge> challenges = new ArrayList<>();
     private final Set<Integer> joinedChallengeIds = new HashSet<>();
@@ -57,6 +52,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         return new ChallengeViewHolder(view);
     }
 
+    @SuppressLint("StringFormatInvalid")
     @Override
     public void onBindViewHolder(@NonNull ChallengeViewHolder holder, int position) {
         Challenge challenge = challenges.get(position);
@@ -86,6 +82,13 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     @Override
     public int getItemCount() {
         return challenges.size();
+    }
+
+    // Listener so the Activity can handle join/leave click.
+    public interface OnJoinLeaveClickListener {
+        void onJoinClicked(Challenge challenge);
+
+        void onLeaveClicked(Challenge challenge);
     }
 
     static class ChallengeViewHolder extends RecyclerView.ViewHolder {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,15 +11,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project02Group09MohammedDikshaFidel">
 
-        <activity android:name=".LoginActivity" android:exported="false" />
-        <activity android:name=".LandingPageActivity" android:exported="false" />
-        <activity android:name=".ChallengesActivity" android:exported="false" />
-        <activity android:name=".AddChallengeActivity" android:exported="false" />
-        <activity android:name=".AdminManagerActivity" android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LandingPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChallengesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddChallengeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminManagerActivity"
+            android:exported="false" />
         <activity
             android:name=".AdminUserListActivity"
             android:exported="false" />
-        <activity android:name=".CreateAccountActivity" android:exported="false" />
+        <activity
+            android:name=".CreateAccountActivity"
+            android:exported="false" />
 
         <activity
             android:name=".session.DailyLogActivity"
@@ -30,9 +43,13 @@
             android:exported="false"
             android:parentActivityName=".LandingPageActivity" />
 
-        <activity android:name=".session.AddLogActivity" android:exported="false" />
+        <activity
+            android:name=".session.AddLogActivity"
+            android:exported="false" />
 
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

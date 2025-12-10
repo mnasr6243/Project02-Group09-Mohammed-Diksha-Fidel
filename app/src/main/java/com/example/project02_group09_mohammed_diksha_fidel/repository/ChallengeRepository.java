@@ -12,10 +12,6 @@ public class ChallengeRepository {
 
     private final ChallengeDao challengeDao;
 
-    public interface OnChallengesLoadedListener {
-        void onChallengesLoaded(List<Challenge> challenges);
-    }
-
     public ChallengeRepository(Application application) {
         AppDatabase db = AppDatabase.get(application);
         challengeDao = db.challengeDao();
@@ -26,5 +22,9 @@ public class ChallengeRepository {
             List<Challenge> list = challengeDao.getAllChallenges();
             listener.onChallengesLoaded(list);
         });
+    }
+
+    public interface OnChallengesLoadedListener {
+        void onChallengesLoaded(List<Challenge> challenges);
     }
 }

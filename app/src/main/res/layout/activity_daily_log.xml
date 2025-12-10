@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,11 +24,11 @@
         android:id="@+id/btnAddLog"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/add_log"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/add_log"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
         tools:ignore="VisualLintButtonSize" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -37,21 +36,21 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/btnAddLog"
         app:layout_constraintBottom_toTopOf="@id/btnBackToMainDaily"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAddLog"
         tools:listitem="@layout/item_activity_log" />
 
     <Button
         android:id="@+id/btnBackToMainDaily"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/back_to_main1"
         android:layout_marginTop="16dp"
+        android:text="@string/back_to_main1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="VisualLintButtonSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

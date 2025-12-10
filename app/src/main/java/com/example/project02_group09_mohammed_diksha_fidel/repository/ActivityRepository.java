@@ -13,21 +13,6 @@ import java.util.List;
 public class ActivityRepository {
     private final ActivityLogDao activityLogDao;
 
-    // Interface to send database results back to the activity (For Daily Log)
-    public interface OnLogsLoadedListener {
-        void onLogsLoaded(List<ActivityLog> logs);
-    }
-
-    // Used to send a single log back (for editing)
-    public interface OnLogLoadedListener {
-        void onLogLoaded(ActivityLog log);
-    }
-
-    // NEW INTERFACE: Used to send the calculated total back to the StatsActivity
-    public interface OnTotalValueLoadedListener {
-        void onTotalValueLoaded(float total);
-    }
-
     // Constructor: Initializes the database and the DAO for activity logs.
     public ActivityRepository(Application application) {
         AppDatabase db = AppDatabase.get(application);
@@ -90,5 +75,20 @@ public class ActivityRepository {
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
         return calendar.getTimeInMillis();
+    }
+
+    // Interface to send database results back to the activity (For Daily Log)
+    public interface OnLogsLoadedListener {
+        void onLogsLoaded(List<ActivityLog> logs);
+    }
+
+    // Used to send a single log back (for editing)
+    public interface OnLogLoadedListener {
+        void onLogLoaded(ActivityLog log);
+    }
+
+    // NEW INTERFACE: Used to send the calculated total back to the StatsActivity
+    public interface OnTotalValueLoadedListener {
+        void onTotalValueLoaded(float total);
     }
 }

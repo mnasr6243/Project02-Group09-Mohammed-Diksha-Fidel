@@ -2,10 +2,10 @@ package com.example.project02_group09_mohammed_diksha_fidel.session;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem; // Import for the back button handler
+import android.view.MenuItem;
 import android.widget.Button;
 
-import androidx.annotation.NonNull; // Import for the back button handler
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

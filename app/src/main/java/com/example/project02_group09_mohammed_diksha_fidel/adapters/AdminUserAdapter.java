@@ -18,10 +18,6 @@ import java.util.List;
 // Simple adapter to show users with a Delete button for admins.
 public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.UserViewHolder> {
 
-    public interface OnDeleteClickListener {
-        void onDeleteClicked(User user);
-    }
-
     private final List<User> users = new ArrayList<>();
     private OnDeleteClickListener deleteClickListener;
 
@@ -62,6 +58,10 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.User
     @Override
     public int getItemCount() {
         return users.size();
+    }
+
+    public interface OnDeleteClickListener {
+        void onDeleteClicked(User user);
     }
 
     static class UserViewHolder extends RecyclerView.ViewHolder {

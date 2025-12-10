@@ -1,5 +1,8 @@
 package com.example.project02_group09_mohammed_diksha_fidel;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import android.content.Context;
 
 import androidx.room.Room;
@@ -17,8 +20,6 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class ChallengeDaoTest {

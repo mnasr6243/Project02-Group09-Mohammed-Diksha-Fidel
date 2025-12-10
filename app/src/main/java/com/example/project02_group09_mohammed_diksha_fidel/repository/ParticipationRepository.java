@@ -10,19 +10,6 @@ import java.util.List;
 
 public class ParticipationRepository {
 
-    public interface OnJoinResultListener {
-        void onAlreadyJoined(int participantCount);
-        void onJoined(int participantCount);
-    }
-
-    public interface OnLeaveResultListener {
-        void onLeft(int participantCount);
-    }
-
-    public interface OnJoinedIdsLoadedListener {
-        void onIdsLoaded(List<Integer> ids);
-    }
-
     private final ParticipationDao participationDao;
 
     public ParticipationRepository(Application application) {
@@ -60,5 +47,19 @@ public class ParticipationRepository {
             List<Integer> ids = participationDao.getChallengeIdsForUser(userId);
             listener.onIdsLoaded(ids);
         });
+    }
+
+    public interface OnJoinResultListener {
+        void onAlreadyJoined(int participantCount);
+
+        void onJoined(int participantCount);
+    }
+
+    public interface OnLeaveResultListener {
+        void onLeft(int participantCount);
+    }
+
+    public interface OnJoinedIdsLoadedListener {
+        void onIdsLoaded(List<Integer> ids);
     }
 }

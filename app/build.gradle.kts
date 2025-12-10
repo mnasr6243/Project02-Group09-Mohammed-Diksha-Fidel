@@ -33,17 +33,21 @@ android {
 
 dependencies {
 
+    // Standard AndroidX Libraries
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
 
+    // Room Database Libraries
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
+    // Local Unit Test Dependencies
     testImplementation(libs.junit)
 
+    // Android Instrumentation Test Dependencies
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation("androidx.test:core:1.5.0")
@@ -51,7 +55,12 @@ dependencies {
     androidTestImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
 
-    androidTestImplementation("androidx.room:room-testing:$room_version") // Using the defined room_version
+    // Database Testing (Room Testing)
+    androidTestImplementation("androidx.room:room-testing:$room_version")
 
+    // LiveData/Architecture Component Testing
     androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    // CRITICAL FIX: Intent Testing Dependency (resolves 'package androidx.test.espresso.intent does not exist')
+    androidTestImplementation ("androidx.test.espresso:espresso-intents:3.5.1")
 }

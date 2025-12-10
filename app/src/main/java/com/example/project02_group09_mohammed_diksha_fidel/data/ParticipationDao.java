@@ -17,5 +17,4 @@ public interface ParticipationDao {
 
     @Query("SELECT challengeId FROM participations WHERE userId = :userId")
     List<Integer> getChallengeIdsForUser(int userId);
-
 }

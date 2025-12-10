@@ -11,8 +11,12 @@ import java.util.List;
 public class ParticipationRepository {
 
     public interface OnJoinResultListener {
-        void onAlreadyJoined();
-        void onJoined();
+        void onAlreadyJoined(int participantCount);
+        void onJoined(int participantCount);
+    }
+
+    public interface OnLeaveResultListener {
+        void onLeft(int participantCount);
     }
 
     public interface OnJoinedIdsLoadedListener {
@@ -26,16 +30,28 @@ public class ParticipationRepository {
         participationDao = db.participationDao();
     }
 
+    // Join a challenge and return the updated participant count
     public void joinChallenge(int userId, int challengeId, OnJoinResultListener listener) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            int count = participationDao.countForUserAndChallenge(userId, challengeId);
-            if (count > 0) {
-                listener.onAlreadyJoined();
+            int countForUser = participationDao.countForUserAndChallenge(userId, challengeId);
+            if (countForUser > 0) {
+                int total = participationDao.countParticipantsForChallenge(challengeId);
+                listener.onAlreadyJoined(total);
             } else {
                 Participation p = new Participation(userId, challengeId, System.currentTimeMillis());
                 participationDao.insert(p);
-                listener.onJoined();
+                int total = participationDao.countParticipantsForChallenge(challengeId);
+                listener.onJoined(total);
             }
+        });
+    }
+
+    // Leave a challenge and return updated participant count
+    public void leaveChallenge(int userId, int challengeId, OnLeaveResultListener listener) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            participationDao.deleteByUserAndChallenge(userId, challengeId);
+            int total = participationDao.countParticipantsForChallenge(challengeId);
+            listener.onLeft(total);
         });
     }
 

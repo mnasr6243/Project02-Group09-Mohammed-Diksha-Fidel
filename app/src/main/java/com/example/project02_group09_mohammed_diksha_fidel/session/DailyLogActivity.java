@@ -1,12 +1,13 @@
 package com.example.project02_group09_mohammed_diksha_fidel.session;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer; // NEW IMPORT
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,10 +44,21 @@ public class DailyLogActivity extends AppCompatActivity {
         adapter = new ActivityLogAdapter();
         recyclerView.setAdapter(adapter);
 
+        // --- NAVIGATION BUTTONS ---
+
+        // 1. Button to go back to the Main/Landing Page
         Button btnBackToMainDaily = findViewById(R.id.btnBackToMainDaily);
         btnBackToMainDaily.setOnClickListener(v -> finish());
 
-        // CRITICAL CHANGE: Load logs and SET UP THE OBSERVER
+        // 2. Button to ADD a new log entry
+        // This button is now correctly linked to the ID in the XML
+        Button btnAddLog = findViewById(R.id.btnAddLog);
+        btnAddLog.setOnClickListener(v -> {
+            // CRITICAL LINK: Launch the activity where the user enters new data
+            startActivity(new Intent(this, AddLogActivity.class));
+        });
+
+        // --- LIVE DATA OBSERVATION ---
         observeDailyLogs();
     }
 
@@ -56,10 +68,10 @@ public class DailyLogActivity extends AppCompatActivity {
 
         // 1. Get the LiveData object from the repository
         activityRepository.getDailyLogsForUser(currentUserId, System.currentTimeMillis())
-                .observe(this, new Observer<List<ActivityLog>>() { // 2. Observe the data change
+                .observe(this, new Observer<List<ActivityLog>>() {
                     @Override
                     public void onChanged(List<ActivityLog> logs) {
-                        // 3. When data changes (insertion/deletion), update the UI automatically
+                        // 2. When data changes (insertion/deletion), update the UI automatically
                         adapter.setLogs(logs);
                     }
                 });
@@ -75,6 +87,4 @@ public class DailyLogActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

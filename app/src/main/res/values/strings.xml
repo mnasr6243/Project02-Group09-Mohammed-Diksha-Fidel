@@ -60,6 +60,12 @@
     <string name="add_log">Add Log</string>
     <string name="weekly_exercise_hours_14">Weekly Exercise Hours: 14</string>
     <string name="weekly_sleep_hours_56">Weekly Sleep Hours: 56</string>
+    <string name="manage_users">Manage Users</string>
+    <string name="delete">Delete</string>
+    <string name="username1">username</string>
+    <string name="user">User</string>
+    <string name="back3">Back</string>
+    <string name="manage_users1">Manage Users</string>
 </resources>
 
 

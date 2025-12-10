@@ -21,12 +21,19 @@ public class AdminManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_manager);
 
         Button viewChallenges = findViewById(R.id.btnViewChallenges);
+        Button manageUsers    = findViewById(R.id.btnManageUsers);
         Button addChallenge   = findViewById(R.id.btnAddChallenge);
         Button backToMain     = findViewById(R.id.btnBackToMain);
 
         viewChallenges.setOnClickListener(v -> {
             // Go to Challenges screen
             Intent intent = new Intent(AdminManagerActivity.this, ChallengesActivity.class);
+            startActivity(intent);
+        });
+
+        // NEW: open Manage Users screen
+        manageUsers.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminManagerActivity.this, AdminUserListActivity.class);
             startActivity(intent);
         });
 

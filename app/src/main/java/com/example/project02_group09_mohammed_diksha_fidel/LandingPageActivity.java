@@ -55,6 +55,7 @@ public class LandingPageActivity extends AppCompatActivity {
             startActivity(new Intent(this, StatsActivity.class));
         });
 
+
         // Listener to navigate to the Admin Manager screen
         btnAdmin.setOnClickListener(v ->
                 startActivity(new Intent(LandingPageActivity.this, AdminManagerActivity.class))
@@ -81,4 +82,5 @@ public class LandingPageActivity extends AppCompatActivity {
     public void onBackPressed() {
         finishAffinity(); // Closes this activity and all parent activities, effectively exiting the app
     }
+
 }

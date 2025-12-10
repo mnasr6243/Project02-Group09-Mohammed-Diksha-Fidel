@@ -37,23 +37,21 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 
-
-    val room_version = "2.6.1" //
-
+    val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
-
     testImplementation(libs.junit)
+
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    androidTestImplementation("androidx.room:room-testing:2.6.1")
     androidTestImplementation("androidx.test:core:1.5.0")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+
+    androidTestImplementation("androidx.room:room-testing:$room_version") // Using the defined room_version
+
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
 }

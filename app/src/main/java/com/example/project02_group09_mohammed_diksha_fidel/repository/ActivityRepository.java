@@ -1,6 +1,7 @@
 package com.example.project02_group09_mohammed_diksha_fidel.repository;
 
 import android.app.Application;
+import androidx.lifecycle.LiveData; // NEW IMPORT: Required for LiveData return type
 
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLogDao;
@@ -13,21 +14,17 @@ import java.util.List;
 public class ActivityRepository {
     private final ActivityLogDao activityLogDao;
 
-    // Interface to send database results back to the activity (For Daily Log)
-    public interface OnLogsLoadedListener {
-        void onLogsLoaded(List<ActivityLog> logs);
-    }
+    // Interface removed, as LiveData handles results automatically.
+    // public interface OnLogsLoadedListener { ... }
 
-    // NEW INTERFACE: Used to send the calculated total back to the StatsActivity
+    // Existing interface for StatsActivity (still needed as Room aggregate queries don't return LiveData easily)
     public interface OnTotalValueLoadedListener {
         void onTotalValueLoaded(float total);
     }
 
     // Constructor: Initializes the database and the DAO for activity logs.
     public ActivityRepository(Application application) {
-        // Gets the singleton instance of the AppDatabase.
         AppDatabase db = AppDatabase.get(application);
-        // Retrieves the Data Access Object (DAO) for ActivityLog operations.
         this.activityLogDao = db.activityLogDao();
     }
 
@@ -39,38 +36,31 @@ public class ActivityRepository {
         });
     }
 
-    // Retrieves all logs for a specific user within the current day.
-    public void getDailyLogsForUser(int userId, long date, OnLogsLoadedListener listener) {
-        // Executes the database query on a background thread.
-        AppDatabase.databaseWriteExecutor.execute(() -> {
-            // Calculate the start and end timestamps for the current day.
-            long startOfDay = calculateStartOfDay(date);
-            long endOfDay = calculateEndOfDay(date);
+    // This query is automatically run/updated by Room on a background thread.
+    public LiveData<List<ActivityLog>> getDailyLogsForUser(int userId, long date) {
+        // Calculate the start and end timestamps for the current day.
+        long startOfDay = calculateStartOfDay(date);
+        long endOfDay = calculateEndOfDay(date);
 
-            // Fetch the logs from the DAO.
-            List<ActivityLog> logs = activityLogDao.getLogsForDay(userId, startOfDay, endOfDay);
-            // Calls the listener method to return the results to the calling activity.
-            listener.onLogsLoaded(logs);
-        });
+        // Fetch the LiveData from the DAO.
+        return activityLogDao.getLogsForDay(userId, startOfDay, endOfDay);
     }
 
     // NEW METHOD: Get the total sum of activity values for a given date range (For Stats Screen)
     public void getTotalValueForRange(int userId, String activityType, long startDate, long endDate, OnTotalValueLoadedListener listener) {
         // Executes the aggregation query on a background thread.
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            // Ensure we use the full range of the start and end days for accurate counting.
             long start = calculateStartOfDay(startDate);
             long end = calculateEndOfDay(endDate);
 
-            // Fetch the summed value from the DAO.
             float totalValue = activityLogDao.getTotalValueForDateRange(userId, activityType, start, end);
-            // Returns the total value via the listener interface.
             listener.onTotalValueLoaded(totalValue);
         });
     }
 
-    // Helper: Calculates the start time of the day (00:00:00) based on a given timestamp.
+    // Helper methods (calculateStartOfDay and calculateEndOfDay) remain unchanged.
     private long calculateStartOfDay(long time) {
+        // ... (implementation remains the same)
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -80,8 +70,8 @@ public class ActivityRepository {
         return calendar.getTimeInMillis();
     }
 
-    // Helper: Calculates the end time of the day (23:59:59) based on a given timestamp.
     private long calculateEndOfDay(long time) {
+        // ... (implementation remains the same)
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         calendar.set(Calendar.HOUR_OF_DAY, 23);

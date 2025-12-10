@@ -56,6 +56,10 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="join">Join</string>
+    <string name="view_challenges1">View Challenges</string>
+    <string name="add_log">Add Log</string>
+    <string name="weekly_exercise_hours_14">Weekly Exercise Hours: 14</string>
+    <string name="weekly_sleep_hours_56">Weekly Sleep Hours: 56</string>
 </resources>
 
 

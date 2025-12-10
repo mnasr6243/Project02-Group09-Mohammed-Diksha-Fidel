@@ -103,7 +103,7 @@
                 android:id="@+id/textViewWeeklySteps1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/weekly_steps_5000"
+                android:text="@string/weekly_exercise_hours_14"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="normal" />
@@ -149,7 +149,7 @@
                 android:id="@+id/textViewWeeklySteps2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/weekly_steps_5000"
+                android:text="@string/weekly_sleep_hours_56"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="normal" />

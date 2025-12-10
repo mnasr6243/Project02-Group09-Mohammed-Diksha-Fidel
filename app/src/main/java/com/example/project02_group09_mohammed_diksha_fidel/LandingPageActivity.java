@@ -1,5 +1,6 @@
 package com.example.project02_group09_mohammed_diksha_fidel;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.example.project02_group09_mohammed_diksha_fidel.session.StatsActivity
 public class LandingPageActivity extends AppCompatActivity {
     private SessionManager session;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +42,14 @@ public class LandingPageActivity extends AppCompatActivity {
         // --- NAVIGATION & FUNCTIONALITY ---
 
         // Listener to navigate to the Daily Log screen
-        btnDailyLog.setOnClickListener(v -> {
-            startActivity(new Intent(this, DailyLogActivity.class));
-        });
+        btnDailyLog.setOnClickListener(v -> startActivity(new Intent(this, DailyLogActivity.class)));
 
         // Listener to navigate to the Statistics screen
-        btnStats.setOnClickListener(v -> {
-            startActivity(new Intent(this, StatsActivity.class));
-        });
+        btnStats.setOnClickListener(v -> startActivity(new Intent(this, StatsActivity.class)));
+
+        Button btnChallenges = findViewById(R.id.btnChallenges);
+        btnChallenges.setOnClickListener(v -> startActivity(new Intent(this, ChallengesActivity.class)));
+
 
         // Listener to navigate to the Admin Manager screen
         btnAdmin.setOnClickListener(v ->
@@ -63,8 +65,10 @@ public class LandingPageActivity extends AppCompatActivity {
     }
 
     // Ensures the device's physical back button exits the app cleanly from the dashboard
+    @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         finishAffinity(); // Closes this activity and all parent activities, effectively exiting the app
     }
 }

@@ -14,7 +14,9 @@ import com.example.project02_group09_mohammed_diksha_fidel.R;
 import com.example.project02_group09_mohammed_diksha_fidel.data.Challenge;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder> {
 
@@ -23,6 +25,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     }
 
     private final List<Challenge> challenges = new ArrayList<>();
+    private final Set<Integer> joinedChallengeIds = new HashSet<>();
     private OnJoinClickListener joinClickListener;
 
     public void setOnJoinClickListener(OnJoinClickListener listener) {
@@ -50,8 +53,17 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
                 )
         );
 
+        boolean joined = joinedChallengeIds.contains(challenge.getChallengeId());
+        if (joined) {
+            holder.btnJoin.setText("Joined");
+            holder.btnJoin.setEnabled(false);
+        } else {
+            holder.btnJoin.setText("Join");
+            holder.btnJoin.setEnabled(true);
+        }
+
         holder.btnJoin.setOnClickListener(v -> {
-            if (joinClickListener != null) {
+            if (joinClickListener != null && !joined) {
                 joinClickListener.onJoinClicked(challenge);
             }
         });
@@ -65,6 +77,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     public void setChallenges(List<Challenge> newChallenges) {
         challenges.clear();
         challenges.addAll(newChallenges);
+        notifyDataSetChanged();
+    }
+
+    public void setJoinedChallengeIds(List<Integer> ids) {
+        joinedChallengeIds.clear();
+        if (ids != null) {
+            joinedChallengeIds.addAll(ids);
+        }
         notifyDataSetChanged();
     }
 

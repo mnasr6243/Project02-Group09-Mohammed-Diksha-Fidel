@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem; // Import for the back button handler
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull; // Import for checking non-null objects/parameters
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +19,11 @@ public class StatsActivity extends AppCompatActivity {
 
     private ActivityRepository activityRepository;
     private SessionManager sessionManager;
+
+    // TextViews for the three cards (steps, exercise, sleep)
     private TextView textViewWeeklySteps;
+    private TextView textViewWeeklyExercise;
+    private TextView textViewWeeklySleep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +33,9 @@ public class StatsActivity extends AppCompatActivity {
         // FIX 1: Enable the Up button (back arrow) in the Action Bar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enables the standard Action Bar back arrow
-            getSupportActionBar().setTitle("Weekly Statistics"); // Sets the title of the Action Bar
+            getSupportActionBar().setTitle("Weekly Statistics");   // Sets the title of the Action Bar
         }
+
         // Finds the custom "Back to Main" button and sets its click listener.
         Button btnBackToMainStats = findViewById(R.id.btnBackToMainStats);
         btnBackToMainStats.setOnClickListener(v -> finish()); // Closes the current activity
@@ -38,8 +44,10 @@ public class StatsActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         activityRepository = new ActivityRepository(getApplication());
 
-        // Connects the UI element for displaying the result
-        textViewWeeklySteps = findViewById(R.id.textViewWeeklySteps);
+        // Connects the UI elements for displaying the results
+        textViewWeeklySteps    = findViewById(R.id.textViewWeeklySteps);
+        textViewWeeklyExercise = findViewById(R.id.textViewWeeklySteps1);
+        textViewWeeklySleep    = findViewById(R.id.textViewWeeklySteps2);
 
         // Initiates the data loading process when the screen is created
         loadWeeklyStats();
@@ -56,7 +64,7 @@ public class StatsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Logic to fetch the total steps for the last 7 days from the database.
+    // Logic to fetch the totals for the last 7 days from the database.
     private void loadWeeklyStats() {
         int currentUserId = sessionManager.getCurrentUserId();
 
@@ -64,27 +72,57 @@ public class StatsActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         long endDate = cal.getTimeInMillis(); // Gets the current timestamp (Today's end)
 
-        cal.add(Calendar.DAY_OF_YEAR, -6); // Moves the calendar back 6 days to find the start of the 7-day period
+        cal.add(Calendar.DAY_OF_YEAR, -6);    // Moves the calendar back 6 days to find the start of the 7-day period
         long startDate = cal.getTimeInMillis(); // Start of the 7-day period timestamp
 
         // --- Fetch Weekly Steps ---
-
-        // Uses the Repository method to fetch the sum of activity values asynchronously
-        activityRepository.getTotalValueForRange(
+        fetchAndDisplayTotal(
                 currentUserId,
-                "Steps", // The specific activity type to sum
+                "Steps",                      // activity type
                 startDate,
                 endDate,
-                new ActivityRepository.OnTotalValueLoadedListener() {
-                    @Override
-                    public void onTotalValueLoaded(float total) {
-                        // Updates the UI on the main thread after the database query completes
-                        runOnUiThread(() -> {
-                            textViewWeeklySteps.setText(String.format(Locale.getDefault(),
-                                    "Weekly Steps: %.0f", total));
-                        });
-                    }
-                }
+                textViewWeeklySteps,          // target TextView
+                "Weekly Steps: %.0f"          // label format
+        );
+
+        // --- Fetch Weekly Exercise (e.g., minutes) ---
+        fetchAndDisplayTotal(
+                currentUserId,
+                "Exercise",
+                startDate,
+                endDate,
+                textViewWeeklyExercise,
+                "Weekly Exercise: %.0f"
+        );
+
+        // --- Fetch Weekly Sleep (e.g., hours) ---
+        fetchAndDisplayTotal(
+                currentUserId,
+                "Sleep",
+                startDate,
+                endDate,
+                textViewWeeklySleep,
+                "Weekly Sleep: %.0f"
+        );
+    }
+
+    // Helper that calls the repository and updates a given TextView when the total is loaded.
+    private void fetchAndDisplayTotal(
+            int userId,
+            String activityType,
+            long startDate,
+            long endDate,
+            TextView targetView,
+            String labelFormat
+    ) {
+        activityRepository.getTotalValueForRange(
+                userId,
+                activityType,
+                startDate,
+                endDate,
+                total -> runOnUiThread(() ->
+                        targetView.setText(String.format(Locale.getDefault(), labelFormat, total))
+                )
         );
     }
 }

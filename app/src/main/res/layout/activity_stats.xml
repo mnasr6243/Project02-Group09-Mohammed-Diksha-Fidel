@@ -20,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Steps card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardStats"
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/textViewStatsTitle">
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp">
@@ -65,21 +66,21 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- Exercise card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardStats1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="16dp"
         android:background="@color/LIGHT_BLUE_PRIMARY"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/cardStats">
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp">
@@ -111,21 +112,21 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- Sleep card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardStats2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="272dp"
+        android:layout_marginTop="16dp"
         android:background="@color/LIGHT_BLUE_PRIMARY"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/cardStats1">
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp">

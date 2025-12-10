@@ -55,21 +55,33 @@ public class ChallengesActivity extends AppCompatActivity {
 
                         @Override
                         public void onJoined() {
-                            runOnUiThread(() ->
-                                    Toast.makeText(ChallengesActivity.this,
-                                            "Challenge joined!",
-                                            Toast.LENGTH_SHORT).show()
-                            );
+                            runOnUiThread(() -> {
+                                Toast.makeText(ChallengesActivity.this,
+                                        "Challenge joined!",
+                                        Toast.LENGTH_SHORT).show();
+                                loadJoinedChallenges();
+                            });
                         }
                     });
         });
 
         loadChallenges();
+        loadJoinedChallenges();
     }
 
     private void loadChallenges() {
-        challengeRepository.getAllChallenges(challenges -> {
-            runOnUiThread(() -> adapter.setChallenges(challenges));
+        challengeRepository.getAllChallenges(new ChallengeRepository.OnChallengesLoadedListener() {
+            @Override
+            public void onChallengesLoaded(List<Challenge> challenges) {
+                runOnUiThread(() -> adapter.setChallenges(challenges));
+            }
         });
+    }
+
+    private void loadJoinedChallenges() {
+        int userId = sessionManager.getCurrentUserId();
+        participationRepository.getJoinedChallengeIds(userId, ids ->
+                runOnUiThread(() -> adapter.setJoinedChallengeIds(ids))
+        );
     }
 }

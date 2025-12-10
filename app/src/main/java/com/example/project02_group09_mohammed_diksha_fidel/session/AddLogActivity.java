@@ -67,12 +67,24 @@ public class AddLogActivity extends AppCompatActivity {
 
             if (editingLogId == -1) {
                 // New log
-                ActivityLog newLog = new ActivityLog(currentUserId, type, value, System.currentTimeMillis());
+                ActivityLog newLog = new ActivityLog(
+                        currentUserId,
+                        type,
+                        value,
+                        System.currentTimeMillis()
+                );
                 activityRepository.insert(newLog);
                 Toast.makeText(this, "Activity saved successfully!", Toast.LENGTH_SHORT).show();
             } else {
                 // Update existing log
-                ActivityLog updatedLog = new ActivityLog(editingLogId, currentUserId, type, value, System.currentTimeMillis());
+                ActivityLog updatedLog = new ActivityLog(
+                        currentUserId,
+                        type,
+                        value,
+                        System.currentTimeMillis()
+                );
+                // Set the existing primary key so Room updates instead of inserting
+                updatedLog.setId(editingLogId);
                 activityRepository.updateLog(updatedLog);
                 Toast.makeText(this, "Activity updated successfully!", Toast.LENGTH_SHORT).show();
             }

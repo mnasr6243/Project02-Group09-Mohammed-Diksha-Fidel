@@ -11,7 +11,7 @@ import com.example.project02_group09_mohammed_diksha_fidel.R;
 import com.example.project02_group09_mohammed_diksha_fidel.data.ActivityLog;
 import com.example.project02_group09_mohammed_diksha_fidel.repository.ActivityRepository;
 
-// This activity handles the UI and logic for adding a new activity log entry.
+// This activity handles the UI and logic for adding or editing a activity log entry.
 public class AddLogActivity extends AppCompatActivity {
 
     private EditText activityTypeInput;
@@ -19,24 +19,39 @@ public class AddLogActivity extends AppCompatActivity {
     private ActivityRepository activityRepository;
     private SessionManager sessionManager;
 
+    // If not -1, we are editing an existing log
+    private int editingLogId = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_log);
 
-        // Init helpers
         activityRepository = new ActivityRepository(getApplication());
         sessionManager = new SessionManager(this);
 
-        // Bind views
         activityTypeInput = findViewById(R.id.editTextActivityType);
         valueInput = findViewById(R.id.editTextValue);
         Button saveButton = findViewById(R.id.buttonSave);
 
+        // Check if we received a LOG_ID (edit mode)
+        editingLogId = getIntent().getIntExtra("LOG_ID", -1);
+        if (editingLogId != -1) {
+            // Load existing log and prefill fields
+            activityRepository.getLogById(editingLogId, log -> {
+                if (log != null) {
+                    runOnUiThread(() -> {
+                        activityTypeInput.setText(log.getType());
+                        valueInput.setText(String.valueOf(log.getValue()));
+                    });
+                }
+            });
+        }
+
         saveButton.setOnClickListener(v -> saveActivityLog());
     }
 
-    // Handles the validation and saving of the activity log data.
+    // Handles the validation and saving/updating of the activity log data.
     private void saveActivityLog() {
         String type = activityTypeInput.getText().toString().trim();
         String valueStr = valueInput.getText().toString().trim();
@@ -48,23 +63,21 @@ public class AddLogActivity extends AppCompatActivity {
 
         try {
             float value = Float.parseFloat(valueStr);
-
-            // Uses the logged-in user’s ID
             int currentUserId = sessionManager.getCurrentUserId();
 
-            // Make sure ActivityLog has this constructor:
-            // ActivityLog(int userId, String type, float value, long timestamp)
-            ActivityLog newLog = new ActivityLog(
-                    currentUserId,
-                    type,
-                    value,
-                    System.currentTimeMillis()
-            );
+            if (editingLogId == -1) {
+                // New log
+                ActivityLog newLog = new ActivityLog(currentUserId, type, value, System.currentTimeMillis());
+                activityRepository.insert(newLog);
+                Toast.makeText(this, "Activity saved successfully!", Toast.LENGTH_SHORT).show();
+            } else {
+                // Update existing log
+                ActivityLog updatedLog = new ActivityLog(editingLogId, currentUserId, type, value, System.currentTimeMillis());
+                activityRepository.updateLog(updatedLog);
+                Toast.makeText(this, "Activity updated successfully!", Toast.LENGTH_SHORT).show();
+            }
 
-            activityRepository.insert(newLog);
-
-            Toast.makeText(this, "Activity saved successfully!", Toast.LENGTH_SHORT).show();
-            finish(); // returns to DailyLogActivity
+            finish(); // Close the screen and return to DailyLogActivity.
 
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Value must be a number.", Toast.LENGTH_SHORT).show();

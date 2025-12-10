@@ -18,14 +18,18 @@
         android:id="@+id/edit_challenge_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Challenge title" />
+        android:hint="Challenge title"
+        android:background="@android:color/white"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/edit_challenge_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Challenge description"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:padding="10dp"
+        android:hint="Challenge description" />
 
     <Button
         android:id="@+id/btnViewChallenges"
@@ -76,6 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@android:color/white"
         android:choiceMode="singleChoice" />
 
     <Button

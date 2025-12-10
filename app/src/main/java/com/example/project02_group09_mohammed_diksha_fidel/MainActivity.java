@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         calendar.setTimeInMillis(System.currentTimeMillis());
 
         // Using Calendar.HOUR for 12-hour clock (1 to 12)
-        calendar.set(Calendar.HOUR, 7);
-        calendar.set(Calendar.MINUTE, 12);
+        calendar.set(Calendar.HOUR, 10);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
         // Specify PM using Calendar.AM_PM

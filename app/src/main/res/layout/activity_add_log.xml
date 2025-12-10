@@ -17,6 +17,8 @@
     <EditText
         android:id="@+id/editTextActivityType"
         android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:padding="10dp"
         android:layout_height="wrap_content"
         android:hint="Activity Type (e.g., Steps, Water)"
         android:inputType="textCapWords"
@@ -25,6 +27,8 @@
     <EditText
         android:id="@+id/editTextValue"
         android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:padding="10dp"
         android:layout_height="wrap_content"
         android:hint="Value (e.g., 5000, 8.5)"
         android:inputType="numberDecimal"

@@ -1,6 +1,5 @@
 package com.example.project02_group09_mohammed_diksha_fidel.adapters;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +19,34 @@ import java.util.Set;
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder> {
 
-    public interface OnJoinClickListener {
+    // Listener so the Activity can handle join/leave click.
+    public interface OnJoinLeaveClickListener {
         void onJoinClicked(Challenge challenge);
+        void onLeaveClicked(Challenge challenge);
     }
 
     private final List<Challenge> challenges = new ArrayList<>();
     private final Set<Integer> joinedChallengeIds = new HashSet<>();
-    private OnJoinClickListener joinClickListener;
+    private OnJoinLeaveClickListener listener;
 
-    public void setOnJoinClickListener(OnJoinClickListener listener) {
-        this.joinClickListener = listener;
+    public void setOnJoinLeaveClickListener(OnJoinLeaveClickListener listener) {
+        this.listener = listener;
+    }
+
+    public void setChallenges(List<Challenge> newChallenges) {
+        challenges.clear();
+        if (newChallenges != null) {
+            challenges.addAll(newChallenges);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setJoinedChallengeIds(List<Integer> ids) {
+        joinedChallengeIds.clear();
+        if (ids != null) {
+            joinedChallengeIds.addAll(ids);
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -40,10 +57,10 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         return new ChallengeViewHolder(view);
     }
 
-    @SuppressLint("StringFormatInvalid")
     @Override
     public void onBindViewHolder(@NonNull ChallengeViewHolder holder, int position) {
         Challenge challenge = challenges.get(position);
+
         holder.title.setText(challenge.getTitle());
         holder.description.setText(challenge.getDescription());
         holder.duration.setText(
@@ -54,17 +71,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         );
 
         boolean joined = joinedChallengeIds.contains(challenge.getChallengeId());
-        if (joined) {
-            holder.btnJoin.setText("Joined");
-            holder.btnJoin.setEnabled(false);
-        } else {
-            holder.btnJoin.setText("Join");
-            holder.btnJoin.setEnabled(true);
-        }
+        holder.btnJoin.setText(joined ? "Leave" : "Join");
 
         holder.btnJoin.setOnClickListener(v -> {
-            if (joinClickListener != null && !joined) {
-                joinClickListener.onJoinClicked(challenge);
+            if (listener == null) return;
+            if (joined) {
+                listener.onLeaveClicked(challenge);
+            } else {
+                listener.onJoinClicked(challenge);
             }
         });
     }
@@ -72,20 +86,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     @Override
     public int getItemCount() {
         return challenges.size();
-    }
-
-    public void setChallenges(List<Challenge> newChallenges) {
-        challenges.clear();
-        challenges.addAll(newChallenges);
-        notifyDataSetChanged();
-    }
-
-    public void setJoinedChallengeIds(List<Integer> ids) {
-        joinedChallengeIds.clear();
-        if (ids != null) {
-            joinedChallengeIds.addAll(ids);
-        }
-        notifyDataSetChanged();
     }
 
     static class ChallengeViewHolder extends RecyclerView.ViewHolder {
